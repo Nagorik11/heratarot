@@ -51,6 +51,8 @@
         .header-scrolled { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .loading-spinner { border: 4px solid rgba(0, 0, 0, 0.1); border-radius: 50%; border-top: 4px solid var(--color-primary); width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -81,12 +83,49 @@
         <section class="py-20 bg-white" id="services"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Servicios de Tarot</h2><p class="text-gray-600 max-w-2xl mx-auto">Conecta con tu yo interior y descubre lo que el futuro tiene preparado para ti</p></div> <div class="grid grid-cols-1 md:grid-cols-3 gap-8"><div class="service-card reveal" style="transition-delay: 100ms;"><div class="service-icon"><i class="fas fa-star-and-crescent"></i></div><h3 class="text-xl font-semibold mb-2">Lectura Básica</h3><p class="text-gray-600 mb-4">Tirada de 30 min para responder tus preguntas más importantes.</p><p class="text-2xl font-bold mystic-text mb-4">$30</p><button class="btn-primary">Reservar Ahora</button></div><div class="service-card reveal" style="transition-delay: 200ms;"><div class="service-icon"><i class="fas fa-moon"></i></div><h3 class="text-xl font-semibold mb-2">Lectura Profunda</h3><p class="text-gray-600 mb-4">Sesión de 60 min que explora todos los aspectos de tu vida.</p><p class="text-2xl font-bold mystic-text mb-4">$55</p><button class="btn-primary">Reservar Ahora</button></div><div class="service-card reveal" style="transition-delay: 300ms;"><div class="service-icon"><i class="fas fa-crystal-ball"></i></div><h3 class="text-xl font-semibold mb-2">Consulta Premium</h3><p class="text-gray-600 mb-4">Experiencia de 90 min con tarot y guía espiritual.</p><p class="text-2xl font-bold mystic-text mb-4">$85</p><button class="btn-primary">Reservar Ahora</button></div></div> </div> </section>
         <section class="py-20 bg-gray-50" id="about"> <div class="container mx-auto px-4"> <div class="flex flex-col md:flex-row items-center gap-12 reveal"> <div class="md:w-1/3 text-center"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286de2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tarotista Selene" class="rounded-full w-64 h-64 mx-auto object-cover shadow-lg border-4 border-white" loading="lazy"></div> <div class="md:w-2/3"><h2 class="text-3xl md:text-4xl font-bold mb-4 section-title !text-left !mx-0 after:!left-0 after:!transform-none">Conoce a tu Guía, Selene</h2><p class="text-gray-600 mb-4 text-lg">Hola, alma curiosa. Soy Selene, y he dedicado mi vida a interpretar los susurros del universo. Mi misión no es predecir un futuro inamovible, sino iluminar tus posibles caminos, dándote la claridad para que elijas con confianza.</p><p class="font-playfair text-xl italic text-purple-700">Con cariño, Selene</p></div> </div> </div> </section>
         <section class="py-20 text-white" id="card-of-the-day" style="background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%);"> <div class="container mx-auto px-4 text-center"> <div class="mb-12 reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title after:!bg-white/50">Tu Carta del Día</h2><p class="text-gray-300 max-w-2xl mx-auto">Toma un respiro profundo y haz clic en la carta para revelar el mensaje que el universo tiene para ti hoy.</p></div> <div class="flex flex-col lg:flex-row items-center justify-center gap-8 reveal"> <div id="tarot-flipper" class="tarot-flipper w-64 h-96 mx-auto"><div class="tarot-card-inner"><div class="tarot-card-front shadow-2xl"><img src="https://i.imgur.com/dK3zW2Z.jpeg" alt="Carta de Tarot" class="w-full h-full object-cover rounded-xl" loading="lazy"></div><div class="tarot-card-back shadow-2xl flex flex-col items-center justify-center text-center"><img id="card-image" src="" alt="" class="w-32 h-32 object-contain mb-4" loading="lazy"><h3 id="card-name" class="text-xl font-bold text-gray-800 serif"></h3><p id="card-meaning" class="text-gray-600 text-sm mt-2"></p></div></div></div> <div id="card-instruction-wrapper" class="lg:w-1/3 text-center lg:text-left mt-8 lg:mt-0"><p id="card-instruction" class="text-lg">Haz clic en la carta para revelarla.</p></div> </div> </div> </section>
-        <section class="py-20" id="products"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Productos Místicos</h2><p class="text-gray-600 max-w-2xl mx-auto">Encuentra los instrumentos perfectos para tu práctica espiritual.</p></div><div class="w-full xl:w-4/5 mx-auto"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal" id="product-grid"><div class="loading-spinner"></div></div></div></div> </section>
+        <section class="py-20" id="products"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Productos Místicos</h2><p class="text-gray-600 max-w-2xl mx-auto">Encuentra los instrumentos perfectos para tu práctica espiritual.</p></div><div class="w-full xl:w-4/5 mx-auto"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal" id="product-grid"><div class="col-span-full flex justify-center py-12"><div class="loading-spinner"></div></div></div></div></div> </section>
         <section class="py-20 bg-gray-50" id="testimonials"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Historias de Claridad</h2><p class="text-gray-600 max-w-2xl mx-auto">Lo que nuestros clientes dicen sobre su experiencia.</p></div> <div class="swiper testimonials-swiper reveal"> <div class="swiper-wrapper pb-12"> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"La lectura con Selene fue increíblemente precisa. Me ayudó a clarificar mis decisiones y encontrar paz."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=maria" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">María G.</h4></div></div></div></div> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"El péndulo de cristal que compré es hermoso y de alta calidad. La energía que emana es poderosa."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=carlos" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">Carlos R.</h4></div></div></div></div> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"Las velas rituales crean la atmósfera perfecta para mis meditaciones."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=ana" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">Ana L.</h4></div></div></div></div> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"Nunca había probado el tarot. Selene fue muy amable y me explicó todo. Salí sintiéndome mucho más ligera."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=javier" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">Javier P.</h4></div></div></div></div> </div> <div class="swiper-pagination"></div> </div> </div> </section>
         <section class="py-20" id="newsletter" style="background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%);"> <div class="container mx-auto px-4 reveal"> <div class="max-w-xl mx-auto text-center"><h2 class="text-3xl font-bold mb-4">Únete a Nuestra Comunidad Mística</h2><p class="mb-6 text-gray-300">Suscríbete para recibir horóscopos semanales y ofertas especiales.</p><div class="flex flex-col sm:flex-row gap-2"><input type="email" placeholder="Tu dirección de email" class="flex-grow px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] bg-white/10 text-white placeholder-gray-300"><button class="btn-primary bg-[var(--color-accent)] text-[var(--color-secondary)] hover:bg-amber-500">Suscribirse</button></div></div> </div> </section>
     </main>
 
-    <footer class="text-white bg-[#111827]"> <!-- Footer Content --> </footer>
+    <footer class="text-white bg-[#111827] py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 serif">Hera Tarot</h3>
+                    <p class="text-gray-400">Guía espiritual y productos esotéricos para iluminar tu camino.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Servicios</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">Sobre Mí</a></li>
+                        <li><a href="#products" class="text-gray-400 hover:text-white">Productos</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-white">Testimonios</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contacto</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400"><i class="fas fa-envelope mr-2"></i> info@heratarot.com</li>
+                        <li class="text-gray-400"><i class="fas fa-phone mr-2"></i> +34 123 456 789</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Síguenos</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Hera Tarot. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
     
     <!-- Modals -->
     <div id="login-modal" class="modal"><div class="modal-content"><i class="fas fa-times close-modal"></i><form id="login-form" class="p-8"><h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2><div class="mb-4"><label for="email" class="block mb-2">Email</label><input type="email" id="email" required class="w-full p-2 border rounded"></div><div class="mb-6"><label for="password" class="block mb-2">Contraseña</label><input type="password" id="password" required class="w-full p-2 border rounded"></div><button type="submit" class="btn-primary w-full">Iniciar Sesión</button></form></div></div>
@@ -103,7 +142,7 @@
     document.addEventListener('DOMContentLoaded', () => { initApp(); });
 
     function initApp() {
-        loadProducts(); // Changed to synchronous as it now decides what to do
+        loadProducts();
         checkLoginState();
         initParticles();
         initSwipers();
@@ -124,29 +163,38 @@
         const storedProducts = localStorage.getItem('mysticTarotProducts');
         if (storedProducts) {
             productData = JSON.parse(storedProducts);
+            displayProducts();
         } else {
             try {
+                // Show loading spinner
+                document.getElementById('product-grid').innerHTML = '<div class="col-span-full flex justify-center py-12"><div class="loading-spinner"></div></div>';
+                
                 // Fetch from the JSON file on the very first load
-                const response = await fetch('/products/products.json');
+                const response = await fetch('products.json');
                 if (!response.ok) throw new Error('Network response was not ok.');
+                
                 const productsFromFile = await response.json();
                 productData = productsFromFile;
-                saveProducts(); // Save the fetched data to localStorage for future visits
+                saveProducts();
+                displayProducts();
             } catch (error) {
                 console.error("Could not fetch products.json:", error);
-                productData = []; // Start with an empty array if fetch fails
+                document.getElementById('product-grid').innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No se pudieron cargar los productos. Por favor, inténtalo de nuevo más tarde.</p></div>';
                 showNotification("Error al cargar el catálogo de productos.", "error");
             }
         }
-        displayProducts(); // Display products after they are loaded
     }
-    function saveProducts() { localStorage.setItem('mysticTarotProducts', JSON.stringify(productData)); }
+    
+    function saveProducts() { 
+        localStorage.setItem('mysticTarotProducts', JSON.stringify(productData)); 
+    }
 
     // === AUTHENTICATION & ADMIN UI ===
     function checkLoginState() {
         const isAdmin = sessionStorage.getItem('isAdminLoggedIn') === 'true';
         updateNav(isAdmin);
     }
+    
     function updateNav(isAdmin) {
         const desktopNavContainer = document.getElementById('desktop-nav-links');
         const mobileNavContainer = document.getElementById('mobile-nav-links');
@@ -161,50 +209,421 @@
             actionLinksDesktopHTML = `<button id="login-btn-desktop" class="text-gray-700 hover:text-gray-900 flex items-center gap-2"><i class="far fa-user"></i> Login</button>`;
             actionLinksMobileHTML = `<div class="border-t my-2"></div> <button id="login-btn-mobile" class="py-2 w-full">Iniciar Sesión</button>`;
         }
+        
         desktopNavContainer.innerHTML = baseLinksHTML + actionLinksDesktopHTML;
         mobileNavContainer.innerHTML = baseLinksHTML + actionLinksMobileHTML;
         addAuthEventListeners();
     }
-    function handleLogin(e) { e.preventDefault(); if (document.getElementById('email').value === ADMIN_CREDENTIALS.email && document.getElementById('password').value === ADMIN_CREDENTIALS.password) { sessionStorage.setItem('isAdminLoggedIn', 'true'); closeModal('login-modal'); checkLoginState(); showNotification('Inicio de sesión exitoso', 'success'); } else { showNotification('Credenciales incorrectas', 'error'); } }
-    function handleLogout() { sessionStorage.removeItem('isAdminLoggedIn'); checkLoginState(); showNotification('Has cerrado sesión', 'success'); }
+    
+    function handleLogin(e) { 
+        e.preventDefault(); 
+        if (document.getElementById('email').value === ADMIN_CREDENTIALS.email && 
+            document.getElementById('password').value === ADMIN_CREDENTIALS.password) { 
+            sessionStorage.setItem('isAdminLoggedIn', 'true'); 
+            closeModal('login-modal'); 
+            checkLoginState(); 
+            showNotification('Inicio de sesión exitoso', 'success'); 
+        } else { 
+            showNotification('Credenciales incorrectas', 'error'); 
+        } 
+    }
+    
+    function handleLogout() { 
+        sessionStorage.removeItem('isAdminLoggedIn'); 
+        checkLoginState(); 
+        showNotification('Has cerrado sesión', 'success'); 
+    }
 
     // === ADMIN PRODUCT MANAGEMENT ===
-    function openAdminPanel() { /* ... Functionality is correct, no changes needed ... */ }
-    function handleDeleteProduct(id) { /* ... Functionality is correct, no changes needed ... */ }
-    function openProductForm(id = null) { /* ... Functionality is correct, no changes needed ... */ }
-    function handleProductFormSubmit(e) { /* ... Functionality is correct, no changes needed ... */ }
+    function openAdminPanel() { 
+        const productList = document.getElementById('admin-product-list');
+        productList.innerHTML = productData.map(product => `
+            <div class="flex items-center justify-between p-2 border rounded hover:bg-gray-50">
+                <div class="flex items-center gap-4">
+                    <img src="${product.image}" class="w-10 h-10 rounded-full object-cover"/>
+                    <span class="font-semibold">${product.title}</span>
+                    <span class="text-sm text-gray-500">($${product.price} | Stock: ${product.stock})</span>
+                </div>
+                <div class="space-x-2">
+                    <button class="text-blue-500 edit-product-btn" data-id="${product.id}"><i class="fas fa-edit"></i></button>
+                    <button class="text-red-500 delete-product-btn" data-id="${product.id}"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('') || '<p>No hay productos.</p>';
+        
+        productList.querySelectorAll('.edit-product-btn').forEach(btn => {
+            btn.addEventListener('click', () => openProductForm(btn.dataset.id));
+        });
+        
+        productList.querySelectorAll('.delete-product-btn').forEach(btn => {
+            btn.addEventListener('click', () => handleDeleteProduct(btn.dataset.id));
+        });
+        
+        openModal('admin-panel-modal');
+    }
+    
+    function handleDeleteProduct(id) {
+        if (confirm('¿Eliminar este producto?')) {
+            productData = productData.filter(product => product.id != id);
+            saveProducts();
+            displayProducts();
+            openAdminPanel();
+            showNotification('Producto eliminado', 'success');
+        }
+    }
+    
+    function openProductForm(id = null) {
+        const form = document.getElementById('product-form');
+        form.reset();
+        
+        const product = id ? productData.find(p => p.id == id) : null;
+        document.getElementById('product-form-title').textContent = product ? 'Editar Producto' : 'Añadir Nuevo Producto';
+        document.getElementById('product-id').value = product ? product.id : '';
+        document.getElementById('product-title').value = product ? product.title : '';
+        document.getElementById('product-category').value = product ? product.category : '';
+        document.getElementById('product-price').value = product ? product.price : '';
+        document.getElementById('product-image').value = product ? product.image : '';
+        document.getElementById('product-stock').value = product ? product.stock : '';
+        
+        openModal('product-form-modal');
+    }
+    
+    function handleProductFormSubmit(e) {
+        e.preventDefault();
+        const id = document.getElementById('product-id').value;
+        const product = {
+            id: id ? parseInt(id) : Date.now(),
+            title: document.getElementById('product-title').value,
+            category: document.getElementById('product-category').value,
+            price: parseFloat(document.getElementById('product-price').value),
+            image: document.getElementById('product-image').value,
+            stock: parseInt(document.getElementById('product-stock').value)
+        };
+        
+        if (id) {
+            // Edit existing product
+            const index = productData.findIndex(p => p.id == id);
+            if (index !== -1) {
+                productData[index] = product;
+            }
+        } else {
+            // Add new product
+            productData.push(product);
+        }
+        
+        saveProducts();
+        displayProducts();
+        closeModal('product-form-modal');
+        openAdminPanel();
+        showNotification(`Producto ${id ? 'actualizado' : 'añadido'}`, 'success');
+    }
 
     // === EVENT LISTENERS ===
     function addAuthEventListeners() {
-        document.querySelectorAll('#login-btn-desktop, #login-btn-mobile').forEach(b => b.addEventListener('click', () => openModal('login-modal')));
-        document.querySelectorAll('#logout-btn, #logout-btn-mobile').forEach(b => b.addEventListener('click', handleLogout));
-        document.querySelectorAll('#admin-panel-btn, #admin-panel-btn-mobile').forEach(b => b.addEventListener('click', openAdminPanel));
+        document.querySelectorAll('#login-btn-desktop, #login-btn-mobile').forEach(btn => {
+            btn.addEventListener('click', () => openModal('login-modal'));
+        });
+        
+        document.querySelectorAll('#logout-btn, #logout-btn-mobile').forEach(btn => {
+            btn.addEventListener('click', handleLogout);
+        });
+        
+        document.querySelectorAll('#admin-panel-btn, #admin-panel-btn-mobile').forEach(btn => {
+            btn.addEventListener('click', openAdminPanel);
+        });
     }
-    function initEventListeners() { /* ... Functionality is correct, no changes needed ... */ }
+    
+    function initEventListeners() {
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        document.getElementById('cart-toggle').addEventListener('click', openCart);
+        document.getElementById('close-cart')?.addEventListener('click', closeCart);
+        document.getElementById('cart-overlay').addEventListener('click', closeCart);
+        
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
+        document.getElementById('add-new-product-btn').addEventListener('click', () => openProductForm());
+        document.getElementById('product-form').addEventListener('submit', handleProductFormSubmit);
+        
+        document.querySelectorAll('.modal .close-modal').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal').style.display = 'none';
+            });
+        });
+    }
     
     // === CART LOGIC ===
-    function openCart() { /* ... Functionality is correct, no changes needed ... */ }
-    function closeCart() { /* ... Functionality is correct, no changes needed ... */ }
-    function addToCart(id) { /* ... Functionality is correct, no changes needed ... */ }
-    function updateCartCount() { /* ... Functionality is correct, no changes needed ... */ }
-    function renderCart() { /* ... Functionality is correct, no changes needed ... */ }
-    function updateCartQuantity(e) { /* ... Functionality is correct, no changes needed ... */ }
-    function removeFromCart(e) { /* ... Functionality is correct, no changes needed ... */ }
+    function openCart() {
+        document.getElementById('cart-drawer').classList.add('open');
+        document.getElementById('cart-overlay').style.display = 'block';
+        renderCart();
+    }
+    
+    function closeCart() {
+        document.getElementById('cart-drawer').classList.remove('open');
+        document.getElementById('cart-overlay').style.display = 'none';
+    }
+    
+    function addToCart(id) {
+        const product = productData.find(p => p.id == id);
+        if (!product || product.stock < 1) {
+            showNotification('Producto sin stock', 'error');
+            return;
+        }
+        
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({...product, quantity: 1});
+        }
+        
+        localStorage.setItem('mysticTarotCart', JSON.stringify(cart));
+        updateCartCount();
+        showNotification(`${product.title} añadido al carrito`, 'success');
+        openCart();
+    }
+    
+    function updateCartCount() {
+        document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
+    }
+    
+    function renderCart() {
+        const cartItems = document.getElementById('cart-items');
+        const subtotalElement = document.getElementById('cart-subtotal');
+        
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p class="p-4 text-center text-gray-500">Tu carrito está vacío.</p>';
+            subtotalElement.textContent = '$0.00';
+            return;
+        }
+        
+        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+        
+        cartItems.innerHTML = cart.map(item => `
+            <div class="flex items-center gap-4 p-4 border-b">
+                <img src="${item.image}" class="w-16 h-16 object-cover rounded"/>
+                <div class="flex-grow">
+                    <p class="font-semibold">${item.title}</p>
+                    <p class="text-sm text-gray-600">$${item.price.toFixed(2)}</p>
+                    <div class="flex items-center mt-2">
+                        <button data-id="${item.id}" data-action="decrease" class="cart-quantity-btn">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button data-id="${item.id}" data-action="increase" class="cart-quantity-btn">+</button>
+                    </div>
+                </div>
+                <button data-id="${item.id}" class="cart-remove-btn text-red-500"><i class="fas fa-trash"></i></button>
+            </div>
+        `).join('');
+        
+        cartItems.querySelectorAll('.cart-quantity-btn').forEach(btn => {
+            btn.addEventListener('click', updateCartQuantity);
+        });
+        
+        cartItems.querySelectorAll('.cart-remove-btn').forEach(btn => {
+            btn.addEventListener('click', removeFromCart);
+        });
+    }
+    
+    function updateCartQuantity(e) {
+        const id = e.target.dataset.id;
+        const action = e.target.dataset.action;
+        const item = cart.find(item => item.id == id);
+        
+        if (item) {
+            if (action === 'increase') {
+                item.quantity++;
+            } else if (action === 'decrease') {
+                item.quantity--;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id != id);
+                }
+            }
+            
+            localStorage.setItem('mysticTarotCart', JSON.stringify(cart));
+            renderCart();
+            updateCartCount();
+        }
+    }
+    
+    function removeFromCart(e) {
+        const id = e.currentTarget.dataset.id;
+        cart = cart.filter(item => item.id != id);
+        localStorage.setItem('mysticTarotCart', JSON.stringify(cart));
+        renderCart();
+        updateCartCount();
+        showNotification('Producto eliminado del carrito', 'success');
+    }
 
     // === UI & UX HELPERS ===
-    function openModal(id) { /* ... Functionality is correct, no changes needed ... */ }
-    function closeModal(id) { /* ... Functionality is correct, no changes needed ... */ }
-    function displayProducts() { /* ... Functionality is correct, no changes needed ... */ }
-    function showNotification(message, type) { /* ... Functionality is correct, no changes needed ... */ }
-    function initHeaderScroll() { /* ... Functionality is correct, no changes needed ... */ }
-    function initScrollAnimations() { /* ... Functionality is correct, no changes needed ... */ }
-    function initParticles() { /* ... Functionality is correct, no changes needed ... */ };
-    function initSwipers() { /* ... Functionality is correct, no changes needed ... */ };
-    function initCardOfTheDay() { /* ... Functionality is correct, no changes needed ... */ };
+    function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
+    }
     
-    // Duplicating the full functions here to be safe
-    openAdminPanel=function(){const t=document.getElementById("admin-product-list");t.innerHTML=productData.map((e=>`<div class="flex items-center justify-between p-2 border rounded hover:bg-gray-50"><div class="flex items-center gap-4"><img src="${e.image}" class="w-10 h-10 rounded-full object-cover"/><span class="font-semibold">${e.title}</span><span class="text-sm text-gray-500">($${e.price} | Stock: ${e.stock})</span></div><div class="space-x-2"><button class="text-blue-500 edit-product-btn" data-id="${e.id}"><i class="fas fa-edit"></i></button><button class="text-red-500 delete-product-btn" data-id="${e.id}"><i class="fas fa-trash"></i></button></div></div>`)).join("")||"<p>No hay productos.</p>",t.querySelectorAll(".edit-product-btn").forEach((e=>{e.addEventListener("click",(()=>openProductForm(e.dataset.id)))})),t.querySelectorAll(".delete-product-btn").forEach((e=>{e.addEventListener("click",(()=>handleDeleteProduct(e.dataset.id)))})),openModal("admin-panel-modal")};handleDeleteProduct=function(e){confirm("¿Eliminar este producto?")&&(productData=productData.filter((t=>t.id!=e)),saveProducts(),displayProducts(),openAdminPanel(),showNotification("Producto eliminado","success"))};openProductForm=function(e=null){const t=document.getElementById("product-form");t.reset();const o=e?productData.find((t=>t.id==e)):null;document.getElementById("product-form-title").textContent=o?"Editar Producto":"Añadir Nuevo Producto",document.getElementById("product-id").value=o?o.id:"",document.getElementById("product-title").value=o?o.title:"",document.getElementById("product-category").value=o?o.category:"",document.getElementById("product-price").value=o?o.price:"",document.getElementById("product-image").value=o?o.image:"",document.getElementById("product-stock").value=o?o.stock:"",openModal("product-form-modal")};handleProductFormSubmit=function(e){e.preventDefault();const t=document.getElementById("product-id").value,o={id:t?parseInt(t):Date.now(),title:document.getElementById("product-title").value,category:document.getElementById("product-category").value,price:parseFloat(document.getElementById("product-price").value),image:document.getElementById("product-image").value,stock:parseInt(document.getElementById("product-stock").value)};t?productData[productData.findIndex((e=>e.id==t))]=o:productData.push(o),saveProducts(),displayProducts(),closeModal("product-form-modal"),openAdminPanel(),showNotification(`Producto ${t?"actualizado":"añadido"}`,"success")};initEventListeners=function(){document.getElementById("menu-toggle").addEventListener("click",(()=>document.getElementById("mobile-menu").classList.toggle("hidden"))),document.getElementById("cart-toggle").addEventListener("click",openCart),document.getElementById("close-cart")?.addEventListener("click",closeCart),document.getElementById("cart-overlay").addEventListener("click",closeCart),document.getElementById("login-form").addEventListener("submit",handleLogin),document.getElementById("add-new-product-btn").addEventListener("click",(()=>openProductForm())),document.getElementById("product-form").addEventListener("submit",handleProductFormSubmit),document.querySelectorAll(".modal .close-modal").forEach((e=>{e.addEventListener("click",(()=>e.closest(".modal").style.display="none"))}))};openCart=function(){document.getElementById("cart-drawer").classList.add("open"),document.getElementById("cart-overlay").style.display="block",renderCart()};closeCart=function(){document.getElementById("cart-drawer").classList.remove("open"),document.getElementById("cart-overlay").style.display="none"};addToCart=function(e){const t=productData.find((t=>t.id==e));if(!t||t.stock<1)return void showNotification("Producto sin stock","error");const o=cart.find((t=>t.id===e));o?o.quantity++:cart.push({...t,quantity:1}),localStorage.setItem("mysticTarotCart",JSON.stringify(cart)),updateCartCount(),showNotification(`${t.title} añadido`,"success"),openCart()};updateCartCount=function(){document.getElementById("cart-count").textContent=cart.reduce(((e,t)=>e+t.quantity),0)};renderCart=function(){const e=document.getElementById("cart-items"),t=document.getElementById("cart-subtotal");if(0===cart.length)return e.innerHTML='<p class="p-4 text-center text-gray-500">Tu carrito está vacío.</p>',void(t.textContent="$0.00");const o=cart.reduce(((e,t)=>e+t.price*t.quantity),0);t.textContent=`$${o.toFixed(2)}`,e.innerHTML=cart.map((e=>`<div class="flex items-center gap-4 p-4 border-b"><img src="${e.image}" class="w-16 h-16 object-cover rounded"/><div class="flex-grow"><p class="font-semibold">${e.title}</p><p class="text-sm text-gray-600">$${e.price.toFixed(2)}</p><div class="flex items-center mt-2"><button data-id="${e.id}" data-action="decrease" class="cart-quantity-btn">-</button><span class="mx-2">${e.quantity}</span><button data-id="${e.id}" data-action="increase" class="cart-quantity-btn">+</button></div></div><button data-id="${e.id}" class="cart-remove-btn text-red-500"><i class="fas fa-trash"></i></button></div>`)).join(""),e.querySelectorAll(".cart-quantity-btn").forEach((e=>{e.addEventListener("click",updateCartQuantity)})),e.querySelectorAll(".cart-remove-btn").forEach((e=>{e.addEventListener("click",removeFromCart)}))};updateCartQuantity=function(e){const t=e.target.dataset.id,o=e.target.dataset.action,c=cart.find((e=>e.id==t));c&&("increase"===o?c.quantity++:"decrease"===o&&c.quantity--,c.quantity<=0&&(cart=cart.filter((e=>e.id!=t))),localStorage.setItem("mysticTarotCart",JSON.stringify(cart)),renderCart(),updateCartCount())};removeFromCart=function(e){const t=e.currentTarget.dataset.id;cart=cart.filter((e=>e.id!=t)),localStorage.setItem("mysticTarotCart",JSON.stringify(cart)),renderCart(),updateCartCount(),showNotification("Producto eliminado","success")};openModal=function(e){document.getElementById(e).style.display="flex"};closeModal=function(e){document.getElementById(e).style.display="none"};displayProducts=function(){const e=document.getElementById("product-grid");e.innerHTML="",productData.forEach(((t,o)=>{const c=document.createElement("div");c.className="product-card reveal",c.style.transitionDelay=`${50*o}ms`,c.innerHTML=`<div class="product-image-container"><img src="${t.image}" alt="${t.title}" class="product-image" loading="lazy"></div><div class="p-4 text-center"><h3 class="text-sm text-gray-500">${t.category}</h3><h2 class="text-lg font-semibold mb-1 serif">${t.title}</h2><p class="text-xl font-bold mystic-text">$${t.price.toFixed(2)}</p></div><div class="add-to-cart-flyout"><button class="btn-primary w-full !py-2 !text-sm" onclick="addToCart(${t.id})">Añadir al Carrito</button></div>`,e.appendChild(c)}))};showNotification=function(e,t){const o=document.getElementById("notification-container"),c=document.createElement("div");c.className=`notification ${t}`,c.textContent=e,o.appendChild(c),setTimeout((()=>c.classList.add("show")),10),setTimeout((()=>{c.classList.remove("show"),setTimeout((()=>c.remove()),400)}),3e3)};initHeaderScroll=function(){const e=document.getElementById("main-header");window.addEventListener("scroll",(()=>e.classList.toggle("header-scrolled",window.scrollY>50)))};initScrollAnimations=function(){const e=new IntersectionObserver(((t,o)=>t.forEach((t=>{t.isIntersecting&&(t.target.classList.add("is-visible"),o.unobserve(t.target))}))),{threshold:.1});document.querySelectorAll(".reveal").forEach((t=>e.observe(t)))};initParticles=function(){"undefined"!=typeof particlesJS&&particlesJS("particles-js",{particles:{number:{value:40,density:{enable:!0,value_area:800}},color:{value:"#ffffff"},shape:{type:"circle"},opacity:{value:.5,random:!0,anim:{enable:!0,speed:1,opacity_min:.1}},size:{value:2,random:!0},move:{enable:!0,speed:1,random:!0,direction:"none",out_mode:"out"}},interactivity:{detect_on:"canvas",events:{onhover:{enable:!1},onclick:{enable:!1}}}},(function(){}))};initSwipers=function(){"undefined"!=typeof Swiper&&new Swiper(".testimonials-swiper",{loop:!0,slidesPerView:1,spaceBetween:30,autoplay:{delay:5e3},pagination:{el:".swiper-pagination",clickable:!0},breakpoints:{768:{slidesPerView:2},1024:{slidesPerView:3}}})};initCardOfTheDay=function(){const e=document.getElementById("tarot-flipper");if(!e)return;const t=document.getElementById("card-instruction"),o=[{name:"El Mago",meaning:"Manifestación, poder, recursos. Hoy tienes las herramientas para crear tu realidad.",image:"https://i.imgur.com/8YV4a2s.png"},{name:"La Sacerdotisa",meaning:"Intuición, misterio. Escucha tu voz interior.",image:"https://i.imgur.com/2Xk8J2A.png"},{name:"El Sol",meaning:"Alegría, éxito, vitalidad. Disfruta la energía positiva.",image:"https://i.imgur.com/J3tG3sC.png"},{name:"La Estrella",meaning:"Esperanza, inspiración, serenidad. Mantén la fe.",image:"https://i.imgur.com/lVqD2gA.png"}],c=()=>{const n=new Date().toDateString();let a=JSON.parse(sessionStorage.getItem("dailyCard"));a&&sessionStorage.getItem("dailyCardDate")===n||(a=o[Math.floor(Math.random()*o.length)],sessionStorage.setItem("dailyCard",JSON.stringify(a)),sessionStorage.setItem("dailyCardDate",n)),document.getElementById("card-name").textContent=a.name,document.getElementById("card-meaning").textContent=a.meaning,document.getElementById("card-image").src=a.image,t.textContent="El mensaje ha sido revelado. Vuelve mañana.",e.classList.add("is-flipped")};e.addEventListener("click",c,{once:!0}),sessionStorage.getItem("dailyCardDate")===new Date().toDateString()&&c()};
-
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+    
+    function displayProducts() {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+        
+        productData.forEach((product, index) => {
+            const card = document.createElement('div');
+            card.className = 'product-card reveal';
+            card.style.transitionDelay = `${50 * index}ms`;
+            
+            card.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="text-sm text-gray-500">${product.category}</h3>
+                    <h2 class="text-lg font-semibold mb-1 serif">${product.title}</h2>
+                    <p class="text-xl font-bold mystic-text">$${product.price.toFixed(2)}</p>
+                </div>
+                <div class="add-to-cart-flyout">
+                    <button class="btn-primary w-full !py-2 !text-sm" onclick="addToCart(${product.id})">Añadir al Carrito</button>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+        
+        // Initialize reveal animations for the new products
+        initScrollAnimations();
+    }
+    
+    function showNotification(message, type) {
+        const container = document.getElementById('notification-container');
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        container.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 400);
+        }, 3000);
+    }
+    
+    function initHeaderScroll() {
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('header-scrolled', window.scrollY > 50);
+        });
+    }
+    
+    function initScrollAnimations() {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(element => {
+            observer.observe(element);
+        });
+    }
+    
+    function initParticles() {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: '#ffffff' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1 } },
+                    size: { value: 2, random: true },
+                    move: { enable: true, speed: 1, random: true, direction: 'none', out_mode: 'out' }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: { onhover: { enable: false }, onclick: { enable: false } }
+                }
+            }, function() {});
+        }
+    }
+    
+    function initSwipers() {
+        if (typeof Swiper !== 'undefined') {
+            new Swiper('.testimonials-swiper', {
+                loop: true,
+                slidesPerView: 1,
+                spaceBetween: 30,
+                autoplay: { delay: 5000 },
+                pagination: { el: '.swiper-pagination', clickable: true },
+                breakpoints: {
+                    768: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 }
+                }
+            });
+        }
+    }
+    
+    function initCardOfTheDay() {
+        const flipper = document.getElementById('tarot-flipper');
+        if (!flipper) return;
+        
+        const instruction = document.getElementById('card-instruction');
+        const cards = [
+            { 
+                name: 'El Mago', 
+                meaning: 'Manifestación, poder, recursos. Hoy tienes las herramientas para crear tu realidad.', 
+                image: 'https://i.imgur.com/8YV4a2s.png' 
+            },
+            { 
+                name: 'La Sacerdotisa', 
+                meaning: 'Intuición, misterio. Escucha tu voz interior.', 
+                image: 'https://i.imgur.com/2Xk8J2A.png' 
+            },
+            { 
+                name: 'El Sol', 
+                meaning: 'Alegría, éxito, vitalidad. Disfruta la energía positiva.', 
+                image: 'https://i.imgur.com/J3tG3sC.png' 
+            },
+            { 
+                name: 'La Estrella', 
+                meaning: 'Esperanza, inspiración, serenidad. Mantén la fe.', 
+                image: 'https://i.imgur.com/lVqD2gA.png' 
+            }
+        ];
+        
+        const revealCard = () => {
+            const today = new Date().toDateString();
+            let card = JSON.parse(sessionStorage.getItem('dailyCard'));
+            
+            if (!card || sessionStorage.getItem('dailyCardDate') !== today) {
+                card = cards[Math.floor(Math.random() * cards.length)];
+                sessionStorage.setItem('dailyCard', JSON.stringify(card));
+                sessionStorage.setItem('dailyCardDate', today);
+            }
+            
+            document.getElementById('card-name').textContent = card.name;
+            document.getElementById('card-meaning').textContent = card.meaning;
+            document.getElementById('card-image').src = card.image;
+            instruction.textContent = 'El mensaje ha sido revelado. Vuelve mañana.';
+            flipper.classList.add('is-flipped');
+        };
+        
+        flipper.addEventListener('click', revealCard, { once: true });
+        
+        // If already revealed today, show it immediately
+        if (sessionStorage.getItem('dailyCardDate') === new Date().toDateString()) {
+            revealCard();
+        }
+    }
     </script>
 </body>
 </html>
