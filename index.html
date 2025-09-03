@@ -9,603 +9,664 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Particle.js for Hero Animation -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <style>
+
+    <style id="app-style">
         :root {
-            --color-primary: #8B5CF6; --color-primary-light: #A78BFA; --color-primary-dark: #7C3AED;
-            --color-secondary: #1a1a1a; --color-mystic: #4C1D95; --color-accent: #FBBF24; --transition-speed: 0.3s;
+            --color-primary: #8B5CF6;
+            --color-primary-light: #A78BFA;
+            --color-primary-dark: #7C3AED;
+            --color-secondary: #1a1a1a;
+            --color-mystic: #4C1D95;
+            --color-accent: #FBBF24;
+            --transition-speed: 0.3s;
         }
-        .hidden { display: none !important; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; color: var(--color-secondary); background-color: #fefcff; background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill="%23ddd6fe" fill-opacity="0.2"%3E%3Ccircle cx="50" cy="50" r="1"/%3E%3Ccircle cx="10" cy="20" r="1"/%3E%3Ccircle cx="80" cy="30" r="1"/%3E%3Ccircle cx="30" cy="70" r="1"/%3E%3Ccircle cx="90" cy="90" r="1"/%3E%3C/g%3E%3C/svg%3E'); }
+        body { font-family: 'Montserrat', sans-serif; color: var(--color-secondary); background-color: #fefcff; }
         h1, h2, h3, h4, h5, .serif { font-family: 'Playfair Display', serif; }
-        .section-title { position: relative; display: inline-block; padding-bottom: 0.75rem; }
-        .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, var(--color-primary-light), var(--color-accent)); border-radius: 2px; }
         .btn-primary { background-color: var(--color-primary); color: white; transition: all var(--transition-speed) ease; padding: 0.75rem 1.5rem; font-weight: 500; border-radius: 0.25rem; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2); }
         .btn-primary:hover { background-color: var(--color-primary-dark); transform: translateY(-2px); box-shadow: 0 7px 20px rgba(139, 92, 246, 0.3); }
+        .btn-secondary { background-color: transparent; color: var(--color-secondary); border: 1px solid var(--color-secondary); transition: all var(--transition-speed) ease; padding: 0.75rem 1.5rem; font-weight: 500; border-radius: 0.25rem; }
+        .btn-secondary:hover { background-color: var(--color-secondary); color: white; transform: translateY(-2px); }
+        .mystic-text { color: var(--color-primary); }
         .hero-banner { position: relative; height: 100vh; background-position: center; background-size: cover; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .hero-content { position: relative; z-index: 2; max-width: 800px; text-align: center; }
         .hero-banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(26,26,26,0.5) 0%, rgba(17,17,17,0.8) 100%); }
-        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
         .product-card { transition: all var(--transition-speed) ease; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); height: 100%; background: white; border: 1px solid #eee; position: relative; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); border-color: var(--color-primary-light); }
         .product-image-container { position: relative; overflow: hidden; padding-top: 100%; background-color: #f8f8f8; }
         .product-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .product-card:hover .product-image { transform: scale(1.05); }
-        .add-to-cart-flyout { position: absolute; bottom: -60px; left: 0; right: 0; padding: 0.75rem; background: linear-gradient(transparent, rgba(0,0,0,0.5)); transition: bottom var(--transition-speed) ease; }
-        .product-card:hover .add-to-cart-flyout { bottom: 0; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); animation: fadeIn 0.3s; backdrop-filter: blur(5px); align-items: center; justify-content: center; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); animation: fadeIn 0.3s; backdrop-filter: blur(5px); }
         @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
-        .modal-content { background-color: white; margin: auto; max-width: 500px; width: 90%; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideUp 0.4s; position: relative; }
-        @keyframes slideUp { from {transform: translateY(50px) scale(0.95); opacity: 0;} to {transform: translateY(0) scale(1); opacity: 1;} }
-        .modal .close-modal { position: absolute; top: 1rem; right: 1rem; cursor: pointer; color: #999; font-size: 1.5rem; }
-        .cart-drawer { position: fixed; top: 0; right: -400px; width: 380px; max-width: 100%; height: 100vh; background-color: white; z-index: 1000; box-shadow: 0 0 20px rgba(0,0,0,0.2); transition: right 0.4s ease; display: flex; flex-direction: column; }
+        .modal-content { background-color: rgba(255,255,255,0.95); margin: 2% auto; max-width: 1000px; width: 90%; max-height: 90vh; overflow-y: auto; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideUp 0.4s; backdrop-filter: blur(10px); }
+        @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+        .cart-drawer { position: fixed; top: 0; right: -400px; width: 380px; max-width: 100%; height: 100vh; background-color: white; z-index: 1000; box-shadow: 0 0 20px rgba(0,0,0,0.2); transition: right 0.4s ease; overflow-y: auto; }
         .cart-drawer.open { right: 0; }
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 999; display: none; }
-        .notification { padding: 12px 24px; border-radius: 4px; color: white; font-weight: 500; transform: translateY(20px); opacity: 0; transition: all 0.4s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 20px; border-radius: 4px; color: white; font-weight: 500; transform: translateY(-100px); transition: transform 0.3s ease; z-index: 1100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .notification.success { background-color: #4CAF50; }
         .notification.error { background-color: #F44336; }
-        .notification.show { transform: translateY(0); opacity: 1; }
+        .notification.show { transform: translateY(0); }
+        .service-card { transition: all var(--transition-speed) ease; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); height: 100%; background: white; text-align: center; padding: 2rem; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); }
+        .service-icon { font-size: 3rem; color: var(--color-primary); margin-bottom: 1rem; }
+        @media (max-width: 768px) {
+            .hero-banner { height: 70vh; }
+            .mobile-filter-toggle { display: block; }
+            .cart-drawer { width: 100%; right: -100%; }
+            /* Other mobile styles from previous version... */
+        }
+    </style>
+    
+    <style id="design-improvements">
+        html { scroll-behavior: smooth; }
+        body { background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill="%23ddd6fe" fill-opacity="0.2"%3E%3Ccircle cx="50" cy="50" r="1"/%3E%3Ccircle cx="10" cy="20" r="1"/%3E%3Ccircle cx="80" cy="30" r="1"/%3E%3Ccircle cx="30" cy="70" r="1"/%3E%3Ccircle cx="90" cy="90" r="1"/%3E%3C/g%3E%3C/svg%3E'); }
+        .section-title { position: relative; display: inline-block; padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, var(--color-primary-light), var(--color-accent)); border-radius: 2px; }
         .header-scrolled { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        header nav a { position: relative; transition: color var(--transition-speed) ease; }
+        header nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 50%; transform: translateX(-50%); background-color: var(--color-primary); transition: width var(--transition-speed) ease; }
+        header nav a:hover::after { width: 100%; }
+        .hero-content h1 { text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .service-card { position: relative; border: 1px solid #e5e7eb; z-index: 1; }
+        .service-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 0.5rem; border: 2px solid transparent; background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent)) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude; z-index: -1; opacity: 0; transition: opacity 0.4s ease; }
+        .service-card:hover::before { opacity: 1; }
+        .service-icon { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%); margin-left: auto; margin-right: auto; }
+        #products { background: linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%); }
+        .testimonial-card { background: white; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.07); position: relative; overflow: hidden; }
+        .testimonial-card::before { content: '\f10d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -10px; left: 10px; font-size: 5rem; color: var(--color-primary); opacity: 0.08; }
+        .testimonial-stars { color: var(--color-accent); }
+        #newsletter { background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%); color: white; }
+        #newsletter h2 { text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        footer { background-color: #111827; }
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
-        .loading-spinner { border: 4px solid rgba(0, 0, 0, 0.1); border-radius: 50%; border-top: 4px solid var(--color-primary); width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+
+    <!-- === FINAL IMPROVEMENTS === -->
+    <style id="final-improvements">
+        /* Hero Particles Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* About Me Section */
+        #about .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--color-primary-dark);
+        }
+
+        /* Card of the Day Section */
+        #card-of-the-day {
+            background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%);
+        }
+        .tarot-flipper {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .tarot-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .tarot-flipper.is-flipped .tarot-card-inner {
+            transform: rotateY(180deg);
+        }
+        .tarot-card-front, .tarot-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        .tarot-card-back {
+            transform: rotateY(180deg);
+            background-color: white;
+            padding: 1.5rem;
+        }
+        
+        /* Product Card Enhanced Hover */
+        .add-to-cart-flyout {
+            position: absolute;
+            bottom: -60px; /* Start hidden */
+            left: 0;
+            right: 0;
+            padding: 0.75rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.5));
+            transition: bottom var(--transition-speed) ease;
+        }
+        .product-card:hover .add-to-cart-flyout {
+            bottom: 0;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Testimonials Swiper Styling */
+        .testimonials-swiper .swiper-pagination-bullet-active {
+            background-color: var(--color-primary);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300" id="main-header">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
-                <a href="#" class="text-2xl font-bold serif text-[var(--color-primary)] flex items-center gap-2"><i class="fas fa-star-and-crescent"></i> Hera Tarot</a>
+                <a href="#" class="text-2xl font-bold serif mystic-text flex items-center gap-2">
+                    <i class="fas fa-star-and-crescent"></i> Mystic Tarot
+                </a>
                 <div class="flex items-center space-x-6">
-                    <nav class="hidden md:flex space-x-6 items-center" id="desktop-nav-links"></nav>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#" class="text-gray-700 hover:text-gray-900">Inicio</a>
+                        <a href="#services" class="text-gray-700 hover:text-gray-900">Servicios</a>
+                        <a href="#about" class="text-gray-700 hover:text-gray-900">Sobre Mí</a>
+                        <a href="#products" class="text-gray-700 hover:text-gray-900">Productos</a>
+                        <a href="#testimonials" class="text-gray-700 hover:text-gray-900">Testimonios</a>
+                    </nav>
                     <div class="flex items-center space-x-4">
-                        <button id="cart-toggle" class="text-gray-700 hover:text-gray-900 relative"><i class="fas fa-shopping-bag text-lg"></i><span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--color-primary)] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span></button>
-                        <button class="md:hidden text-gray-700 text-xl" id="menu-toggle"><i class="fas fa-bars"></i></button>
+                        <button class="text-gray-700 hover:text-gray-900"><i class="far fa-heart"></i></button>
+                        <button class="text-gray-700 hover:text-gray-900"><i class="far fa-user"></i></button>
+                        <button id="cart-toggle" class="text-gray-700 hover:text-gray-900 relative">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-[#8B5CF6] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </button>
+                        <button class="md:hidden text-gray-700 hover:text-gray-900" id="menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="md:hidden hidden" id="mobile-menu">
-            <nav class="flex flex-col py-4 space-y-2 border-t text-center" id="mobile-nav-links"></nav>
+            <div class="md:hidden hidden" id="mobile-menu">
+                <nav class="flex flex-col py-4 space-y-4 border-t">
+                    <a href="#" class="text-gray-700 hover:text-gray-900">Inicio</a>
+                    <a href="#services" class="text-gray-700 hover:text-gray-900">Servicios</a>
+                    <a href="#about" class="text-gray-700 hover:text-gray-900">Sobre Mí</a>
+                    <a href="#products" class="text-gray-700 hover:text-gray-900">Productos</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-gray-900">Testimonios</a>
+                </nav>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- Todas las secciones (Hero, Services, About, etc.) -->
+        <!-- Hero Banner with Particles -->
         <section class="hero-banner" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/12/19/31/tarot-cards-2743904_1280.jpg');">
             <div id="particles-js"></div>
-            <div class="hero-content text-white px-4 reveal is-visible"><h1 class="text-5xl md:text-7xl font-bold mb-4">Ilumina Tu Camino</h1><p class="text-xl md:text-2xl mb-8">Guía espiritual, lecturas de tarot y herramientas para tu alma.</p><a href="#services" class="btn-primary">Explorar Servicios</a></div>
+            <div class="hero-content text-white px-4 reveal is-visible">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4">Ilumina Tu Camino</h1>
+                <p class="text-xl md:text-2xl mb-8">Guía espiritual, lecturas de tarot y herramientas para tu alma.</p>
+                <a href="#services" class="btn-primary">Explorar Servicios</a>
+            </div>
         </section>
-        <section class="py-20 bg-white" id="services"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Servicios de Tarot</h2><p class="text-gray-600 max-w-2xl mx-auto">Conecta con tu yo interior y descubre lo que el futuro tiene preparado para ti</p></div> <div class="grid grid-cols-1 md:grid-cols-3 gap-8"><div class="service-card reveal" style="transition-delay: 100ms;"><div class="service-icon"><i class="fas fa-star-and-crescent"></i></div><h3 class="text-xl font-semibold mb-2">Lectura Básica</h3><p class="text-gray-600 mb-4">Tirada de 30 min para responder tus preguntas más importantes.</p><p class="text-2xl font-bold mystic-text mb-4">$30</p><button class="btn-primary">Reservar Ahora</button></div><div class="service-card reveal" style="transition-delay: 200ms;"><div class="service-icon"><i class="fas fa-moon"></i></div><h3 class="text-xl font-semibold mb-2">Lectura Profunda</h3><p class="text-gray-600 mb-4">Sesión de 60 min que explora todos los aspectos de tu vida.</p><p class="text-2xl font-bold mystic-text mb-4">$55</p><button class="btn-primary">Reservar Ahora</button></div><div class="service-card reveal" style="transition-delay: 300ms;"><div class="service-icon"><i class="fas fa-crystal-ball"></i></div><h3 class="text-xl font-semibold mb-2">Consulta Premium</h3><p class="text-gray-600 mb-4">Experiencia de 90 min con tarot y guía espiritual.</p><p class="text-2xl font-bold mystic-text mb-4">$85</p><button class="btn-primary">Reservar Ahora</button></div></div> </div> </section>
-        <section class="py-20 bg-gray-50" id="about"> <div class="container mx-auto px-4"> <div class="flex flex-col md:flex-row items-center gap-12 reveal"> <div class="md:w-1/3 text-center"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286de2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tarotista Selene" class="rounded-full w-64 h-64 mx-auto object-cover shadow-lg border-4 border-white" loading="lazy"></div> <div class="md:w-2/3"><h2 class="text-3xl md:text-4xl font-bold mb-4 section-title !text-left !mx-0 after:!left-0 after:!transform-none">Conoce a tu Guía, Selene</h2><p class="text-gray-600 mb-4 text-lg">Hola, alma curiosa. Soy Selene, y he dedicado mi vida a interpretar los susurros del universo. Mi misión no es predecir un futuro inamovible, sino iluminar tus posibles caminos, dándote la claridad para que elijas con confianza.</p><p class="font-playfair text-xl italic text-purple-700">Con cariño, Selene</p></div> </div> </div> </section>
-        <section class="py-20 text-white" id="card-of-the-day" style="background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%);"> <div class="container mx-auto px-4 text-center"> <div class="mb-12 reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title after:!bg-white/50">Tu Carta del Día</h2><p class="text-gray-300 max-w-2xl mx-auto">Toma un respiro profundo y haz clic en la carta para revelar el mensaje que el universo tiene para ti hoy.</p></div> <div class="flex flex-col lg:flex-row items-center justify-center gap-8 reveal"> <div id="tarot-flipper" class="tarot-flipper w-64 h-96 mx-auto"><div class="tarot-card-inner"><div class="tarot-card-front shadow-2xl"><img src="https://i.imgur.com/dK3zW2Z.jpeg" alt="Carta de Tarot" class="w-full h-full object-cover rounded-xl" loading="lazy"></div><div class="tarot-card-back shadow-2xl flex flex-col items-center justify-center text-center"><img id="card-image" src="" alt="" class="w-32 h-32 object-contain mb-4" loading="lazy"><h3 id="card-name" class="text-xl font-bold text-gray-800 serif"></h3><p id="card-meaning" class="text-gray-600 text-sm mt-2"></p></div></div></div> <div id="card-instruction-wrapper" class="lg:w-1/3 text-center lg:text-left mt-8 lg:mt-0"><p id="card-instruction" class="text-lg">Haz clic en la carta para revelarla.</p></div> </div> </div> </section>
-        <section class="py-20" id="products"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Productos Místicos</h2><p class="text-gray-600 max-w-2xl mx-auto">Encuentra los instrumentos perfectos para tu práctica espiritual.</p></div><div class="w-full xl:w-4/5 mx-auto"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal" id="product-grid"><div class="col-span-full flex justify-center py-12"><div class="loading-spinner"></div></div></div></div></div> </section>
-        <section class="py-20 bg-gray-50" id="testimonials"> <div class="container mx-auto px-4"> <div class="mb-16 text-center reveal"><h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Historias de Claridad</h2><p class="text-gray-600 max-w-2xl mx-auto">Lo que nuestros clientes dicen sobre su experiencia.</p></div> <div class="swiper testimonials-swiper reveal"> <div class="swiper-wrapper pb-12"> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"La lectura con Selene fue increíblemente precisa. Me ayudó a clarificar mis decisiones y encontrar paz."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=maria" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">María G.</h4></div></div></div></div> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"El péndulo de cristal que compré es hermoso y de alta calidad. La energía que emana es poderosa."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=carlos" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">Carlos R.</h4></div></div></div></div> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"Las velas rituales crean la atmósfera perfecta para mis meditaciones."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=ana" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">Ana L.</h4></div></div></div></div> <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars text-xl mb-4 text-[var(--color-accent)]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-600 mb-4">"Nunca había probado el tarot. Selene fue muy amable y me explicó todo. Salí sintiéndome mucho más ligera."</p><div class="flex items-center"><img src="https://i.pravatar.cc/48?u=javier" class="w-12 h-12 rounded-full mr-4"/><div><h4 class="font-semibold">Javier P.</h4></div></div></div></div> </div> <div class="swiper-pagination"></div> </div> </div> </section>
-        <section class="py-20" id="newsletter" style="background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%);"> <div class="container mx-auto px-4 reveal"> <div class="max-w-xl mx-auto text-center"><h2 class="text-3xl font-bold mb-4">Únete a Nuestra Comunidad Mística</h2><p class="mb-6 text-gray-300">Suscríbete para recibir horóscopos semanales y ofertas especiales.</p><div class="flex flex-col sm:flex-row gap-2"><input type="email" placeholder="Tu dirección de email" class="flex-grow px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] bg-white/10 text-white placeholder-gray-300"><button class="btn-primary bg-[var(--color-accent)] text-[var(--color-secondary)] hover:bg-amber-500">Suscribirse</button></div></div> </div> </section>
-    </main>
 
-    <footer class="text-white bg-[#111827] py-12">
-        <div class="container mx-auto px-4">
+        <!-- Services Section -->
+        <section class="py-20 bg-white" id="services">
+            <div class="container mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Servicios de Tarot</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Conecta con tu yo interior y descubre lo que el futuro tiene preparado para ti</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="service-card reveal" style="transition-delay: 100ms;">
+                        <div class="service-icon"><i class="fas fa-star-and-crescent"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Lectura Básica</h3>
+                        <p class="text-gray-600 mb-4">Una tirada completa de 30 minutos para responder tus preguntas más importantes.</p>
+                        <p class="text-2xl font-bold mystic-text mb-4">$30</p>
+                        <button class="btn-primary">Reservar Ahora</button>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 200ms;">
+                        <div class="service-icon"><i class="fas fa-moon"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Lectura Profunda</h3>
+                        <p class="text-gray-600 mb-4">Una sesión extensa de 60 minutos que explora todos los aspectos de tu vida.</p>
+                        <p class="text-2xl font-bold mystic-text mb-4">$55</p>
+                        <button class="btn-primary">Reservar Ahora</button>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 300ms;">
+                        <div class="service-icon"><i class="fas fa-crystal-ball"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Consulta Premium</h3>
+                        <p class="text-gray-600 mb-4">Una experiencia completa de 90 minutos que incluye tarot y orientación espiritual.</p>
+                        <p class="text-2xl font-bold mystic-text mb-4">$85</p>
+                        <button class="btn-primary">Reservar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section class="py-20 bg-gray-50" id="about">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center gap-12 reveal">
+                    <div class="md:w-1/3 text-center">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286de2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Tarotista Selene" class="rounded-full w-64 h-64 mx-auto object-cover shadow-lg border-4 border-white" loading="lazy">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title !text-left !mx-0 after:!left-0 after:!transform-none">Conoce a tu Guía, Verónica</h2>
+                        <p class="text-gray-600 mb-4 text-lg">Hola, alma curiosa. Soy Verónica, y he dedicado mi vida a interpretar los susurros del universo a través de las cartas. Mi misión no es predecir un futuro inamovible, sino iluminar los posibles caminos que se abren ante ti, dándote la claridad y el poder para que elijas con confianza.</p>
+                        <p class="text-gray-600 mb-6">Cada lectura es un espacio sagrado, libre de juicio, donde exploramos juntas tus dudas, miedos y anhelos. Permíteme ser tu guía en este viaje de autodescubrimiento.</p>
+                        <p class="signature">Con cariño, Verónica</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card of the Day Section -->
+        <section class="py-20 text-white" id="card-of-the-day">
+            <div class="container mx-auto px-4 text-center">
+                <div class="mb-12 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title after:!bg-white/50">Tu Carta del Día</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto">Toma un respiro profundo y haz clic en la carta para revelar el mensaje que el universo tiene para ti hoy.</p>
+                </div>
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-8 reveal">
+                    <div id="tarot-flipper" class="tarot-flipper w-64 h-96 mx-auto">
+                        <div class="tarot-card-inner">
+                            <div class="tarot-card-front shadow-2xl">
+                                <img src="https://i.imgur.com/dK3zW2Z.jpeg" alt="Carta de Tarot" class="w-full h-full object-cover rounded-xl" loading="lazy">
+                            </div>
+                            <div class="tarot-card-back shadow-2xl flex flex-col items-center justify-center text-center">
+                                <img id="card-image" src="" alt="" class="w-32 h-32 object-contain mb-4" loading="lazy">
+                                <h3 id="card-name" class="text-xl font-bold text-gray-800 serif"></h3>
+                                <p id="card-meaning" class="text-gray-600 text-sm mt-2"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/3 text-center lg:text-left mt-8 lg:mt-0">
+                        <p id="card-instruction" class="text-lg">Haz clic en la carta para revelarla.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Listing -->
+        <section class="py-20" id="products">
+            <div class="container mx-auto px-4">
+                 <div class="mb-16 text-center reveal">
+                     <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Productos Místicos</h2>
+                     <p class="text-gray-600 max-w-2xl mx-auto">Encuentra los instrumentos perfectos para tu práctica espiritual.</p>
+                 </div>
+                 <div class="w-full md:w-3/4 lg:w-4/5 mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 reveal" id="product-grid">
+                        <div class="loading-spinner"></div>
+                    </div>
+                 </div>
+                 <div class="mt-12 text-center reveal">
+                     <button class="btn-secondary">Ver todos los productos</button>
+                 </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section with Swiper -->
+        <section class="py-20 bg-gray-50" id="testimonials">
+            <div class="container mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Historias de Claridad</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Lo que nuestros clientes dicen sobre su experiencia.</p>
+                </div>
+                <!-- Swiper -->
+                <div class="swiper testimonials-swiper reveal">
+                    <div class="swiper-wrapper pb-12">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-stars text-xl mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 mb-4">"La lectura con Selene fue increíblemente precisa. Me ayudó a clarificar mis decisiones y encontrar paz interior."</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold">María G.</h4>
+                                        <p class="text-gray-500 text-sm">Cliente desde 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-stars text-xl mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 mb-4">"El péndulo de cristal que compré es hermoso y de alta calidad. La energía que emana es realmente poderosa."</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold">Carlos R.</h4>
+                                        <p class="text-gray-500 text-sm">Cliente desde 2023</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-stars text-xl mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 mb-4">"Las velas rituales tienen una fragancia increíble y crean la atmósfera perfecta para mis meditaciones."</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold">Ana L.</h4>
+                                        <p class="text-gray-500 text-sm">Cliente desde 2023</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <div class="testimonial-stars text-xl mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 mb-4">"Nunca antes había probado el tarot. Selene fue muy amable y me explicó todo. Salí sintiéndome mucho más ligera y con un propósito."</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold">Javier P.</h4>
+                                        <p class="text-gray-500 text-sm">Nuevo Cliente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-20" id="newsletter">
+            <div class="container mx-auto px-4 reveal">
+                <div class="max-w-xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold mb-4">Únete a Nuestra Comunidad Mística</h2>
+                    <p class="mb-6 text-gray-300">Suscríbete para recibir horóscopos semanales, acceso a contenido exclusivo y ofertas especiales.</p>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="Tu dirección de email" class="flex-grow px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] bg-white/10 text-white placeholder-gray-300">
+                        <button class="btn-primary bg-[var(--color-accent)] text-[var(--color-secondary)] hover:bg-amber-500">Suscribirse</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="text-white" id="footer">
+        <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4 serif">Hera Tarot</h3>
-                    <p class="text-gray-400">Guía espiritual y productos esotéricos para iluminar tu camino.</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Enlaces Rápidos</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#services" class="text-gray-400 hover:text-white">Servicios</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white">Sobre Mí</a></li>
-                        <li><a href="#products" class="text-gray-400 hover:text-white">Productos</a></li>
-                        <li><a href="#testimonials" class="text-gray-400 hover:text-white">Testimonios</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Contacto</h4>
-                    <ul class="space-y-2">
-                        <li class="text-gray-400"><i class="fas fa-envelope mr-2"></i> info@heratarot.com</li>
-                        <li class="text-gray-400"><i class="fas fa-phone mr-2"></i> +34 123 456 789</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Síguenos</h4>
+                    <h3 class="text-xl font-bold mb-4 mystic-text serif">Hera Tarot</h3>
+                    <p class="text-gray-400 mb-4">Servicios profesionales de tarot y productos ritualísticos de alta calidad para tu práctica espiritual.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest-p"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
                     </div>
                 </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Servicios</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Lectura de Tarot</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cartas Astrales</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Rituales Personalizados</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Productos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mazos de Tarot</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Péndulos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cristales</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Atención al Cliente</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contacto</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Preguntas Frecuentes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Términos de Servicio</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 Hera Tarot. Todos los derechos reservados.</p>
+            <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hera Tarot. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
-    
-    <!-- Modals -->
-    <div id="login-modal" class="modal"><div class="modal-content"><i class="fas fa-times close-modal"></i><form id="login-form" class="p-8"><h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2><div class="mb-4"><label for="email" class="block mb-2">Email</label><input type="email" id="email" required class="w-full p-2 border rounded"></div><div class="mb-6"><label for="password" class="block mb-2">Contraseña</label><input type="password" id="password" required class="w-full p-2 border rounded"></div><button type="submit" class="btn-primary w-full">Iniciar Sesión</button></form></div></div>
-    <div id="admin-panel-modal" class="modal"><div class="modal-content !max-w-3xl"><i class="fas fa-times close-modal"></i><div class="p-8"><div class="flex justify-between items-center mb-6"><h2 class="text-2xl font-bold">Gestionar Productos</h2><button id="add-new-product-btn" class="btn-primary">Añadir Producto</button></div><div id="admin-product-list" class="space-y-2 max-h-96 overflow-y-auto"></div></div></div></div>
-    <div id="product-form-modal" class="modal"><div class="modal-content"><i class="fas fa-times close-modal"></i><form id="product-form" class="p-8"><h2 id="product-form-title" class="text-2xl font-bold mb-6"></h2><input type="hidden" id="product-id"><div class="mb-4"><label for="product-title" class="block mb-2">Título</label><input type="text" id="product-title" required class="w-full p-2 border rounded"></div><div class="mb-4"><label for="product-category" class="block mb-2">Categoría</label><input type="text" id="product-category" required class="w-full p-2 border rounded"></div><div class="mb-4"><label for="product-price" class="block mb-2">Precio</label><input type="number" id="product-price" step="0.01" required class="w-full p-2 border rounded"></div><div class="mb-4"><label for="product-image" class="block mb-2">URL de la Imagen</label><input type="url" id="product-image" required class="w-full p-2 border rounded"></div><div class="mb-4"><label for="product-stock" class="block mb-2">Stock</label><input type="number" id="product-stock" step="1" required class="w-full p-2 border rounded"></div><button type="submit" class="btn-primary w-full">Guardar Producto</button></form></div></div>
 
-    <!-- Cart Drawer and Notification container -->
+    <!-- Cart Drawer -->
     <div class="cart-overlay" id="cart-overlay"></div>
-    <div class="cart-drawer" id="cart-drawer"><div class="flex justify-between items-center p-4 border-b"><h2 class="text-xl font-bold">Tu Carrito</h2><button id="close-cart" class="text-gray-500"><i class="fas fa-times"></i></button></div><div id="cart-items" class="flex-grow overflow-y-auto"></div><div class="p-4 border-t"><div class="flex justify-between font-semibold mb-4"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div><button class="btn-primary w-full">Finalizar Compra</button></div></div>
-    <div id="notification-container" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[1100] space-y-2"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Tu Carrito</h2>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="mb-4">
+                <!-- Cart items will be inserted here -->
+            </div>
+            <div class="border-t pt-4 mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="font-semibold">Subtotal:</span>
+                    <span id="cart-subtotal" class="font-bold">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="font-semibold">Envío:</span>
+                    <span id="cart-shipping" class="font-bold">$0.00</span>
+                </div>
+                <div class="flex justify-between text-lg">
+                    <span class="font-semibold">Total:</span>
+                    <span id="cart-total" class="font-bold">$0.00</span>
+                </div>
+            </div>
+            <button class="btn-primary w-full">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
 
     <script id="app-script">
-    // === APP INITIALIZATION ===
-    document.addEventListener('DOMContentLoaded', () => { initApp(); });
-
-    function initApp() {
-        loadProducts();
-        checkLoginState();
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- INITIALIZATION ---
         initParticles();
         initSwipers();
         initCardOfTheDay();
+        displayProducts();
+        updateCartCount();
         initEventListeners();
         initScrollAnimations();
         initHeaderScroll();
-        updateCartCount();
-    }
-    
-    // === GLOBAL STATE & DATA ===
-    let productData = [];
-    let cart = JSON.parse(localStorage.getItem('mysticTarotCart')) || [];
-    const ADMIN_CREDENTIALS = { email: 'admin@mystic.com', password: 'password123' };
+    });
 
-    // === PRODUCT DATA MANAGEMENT (localStorage with fetch fallback) ===
-    async function loadProducts() {
-        const storedProducts = localStorage.getItem('mysticTarotProducts');
-        if (storedProducts) {
-            productData = JSON.parse(storedProducts);
-            displayProducts();
-        } else {
-            try {
-                // Show loading spinner
-                document.getElementById('product-grid').innerHTML = '<div class="col-span-full flex justify-center py-12"><div class="loading-spinner"></div></div>';
-                
-                // Fetch from the JSON file on the very first load
-                const response = await fetch('products.json');
-                if (!response.ok) throw new Error('Network response was not ok.');
-                
-                const productsFromFile = await response.json();
-                productData = productsFromFile;
-                saveProducts();
-                displayProducts();
-            } catch (error) {
-                console.error("Could not fetch products.json:", error);
-                document.getElementById('product-grid').innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No se pudieron cargar los productos. Por favor, inténtalo de nuevo más tarde.</p></div>';
-                showNotification("Error al cargar el catálogo de productos.", "error");
-            }
-        }
-    }
-    
-    function saveProducts() { 
-        localStorage.setItem('mysticTarotProducts', JSON.stringify(productData)); 
-    }
+    // --- NEW FEATURES ---
 
-    // === AUTHENTICATION & ADMIN UI ===
-    function checkLoginState() {
-        const isAdmin = sessionStorage.getItem('isAdminLoggedIn') === 'true';
-        updateNav(isAdmin);
-    }
-    
-    function updateNav(isAdmin) {
-        const desktopNavContainer = document.getElementById('desktop-nav-links');
-        const mobileNavContainer = document.getElementById('mobile-nav-links');
-        
-        const baseLinksHTML = `<a href="#services" class="text-gray-700 hover:text-gray-900 py-2">Servicios</a> <a href="#about" class="text-gray-700 hover:text-gray-900 py-2">Sobre Mí</a> <a href="#products" class="text-gray-700 hover:text-gray-900 py-2">Productos</a> <a href="#testimonials" class="text-gray-700 hover:text-gray-900 py-2">Testimonios</a>`;
-        let actionLinksDesktopHTML, actionLinksMobileHTML;
-
-        if (isAdmin) {
-            actionLinksDesktopHTML = `<button id="admin-panel-btn" class="font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]">Panel Admin</button> <button id="logout-btn" class="text-gray-700 hover:text-gray-900">Cerrar Sesión</button>`;
-            actionLinksMobileHTML = `<div class="border-t my-2"></div> <button id="admin-panel-btn-mobile" class="font-semibold text-[var(--color-primary)] py-2 w-full">Panel Admin</button> <button id="logout-btn-mobile" class="py-2 w-full">Cerrar Sesión</button>`;
-        } else {
-            actionLinksDesktopHTML = `<button id="login-btn-desktop" class="text-gray-700 hover:text-gray-900 flex items-center gap-2"><i class="far fa-user"></i> Login</button>`;
-            actionLinksMobileHTML = `<div class="border-t my-2"></div> <button id="login-btn-mobile" class="py-2 w-full">Iniciar Sesión</button>`;
-        }
-        
-        desktopNavContainer.innerHTML = baseLinksHTML + actionLinksDesktopHTML;
-        mobileNavContainer.innerHTML = baseLinksHTML + actionLinksMobileHTML;
-        addAuthEventListeners();
-    }
-    
-    function handleLogin(e) { 
-        e.preventDefault(); 
-        if (document.getElementById('email').value === ADMIN_CREDENTIALS.email && 
-            document.getElementById('password').value === ADMIN_CREDENTIALS.password) { 
-            sessionStorage.setItem('isAdminLoggedIn', 'true'); 
-            closeModal('login-modal'); 
-            checkLoginState(); 
-            showNotification('Inicio de sesión exitoso', 'success'); 
-        } else { 
-            showNotification('Credenciales incorrectas', 'error'); 
-        } 
-    }
-    
-    function handleLogout() { 
-        sessionStorage.removeItem('isAdminLoggedIn'); 
-        checkLoginState(); 
-        showNotification('Has cerrado sesión', 'success'); 
-    }
-
-    // === ADMIN PRODUCT MANAGEMENT ===
-    function openAdminPanel() { 
-        const productList = document.getElementById('admin-product-list');
-        productList.innerHTML = productData.map(product => `
-            <div class="flex items-center justify-between p-2 border rounded hover:bg-gray-50">
-                <div class="flex items-center gap-4">
-                    <img src="${product.image}" class="w-10 h-10 rounded-full object-cover"/>
-                    <span class="font-semibold">${product.title}</span>
-                    <span class="text-sm text-gray-500">($${product.price} | Stock: ${product.stock})</span>
-                </div>
-                <div class="space-x-2">
-                    <button class="text-blue-500 edit-product-btn" data-id="${product.id}"><i class="fas fa-edit"></i></button>
-                    <button class="text-red-500 delete-product-btn" data-id="${product.id}"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        `).join('') || '<p>No hay productos.</p>';
-        
-        productList.querySelectorAll('.edit-product-btn').forEach(btn => {
-            btn.addEventListener('click', () => openProductForm(btn.dataset.id));
-        });
-        
-        productList.querySelectorAll('.delete-product-btn').forEach(btn => {
-            btn.addEventListener('click', () => handleDeleteProduct(btn.dataset.id));
-        });
-        
-        openModal('admin-panel-modal');
-    }
-    
-    function handleDeleteProduct(id) {
-        if (confirm('¿Eliminar este producto?')) {
-            productData = productData.filter(product => product.id != id);
-            saveProducts();
-            displayProducts();
-            openAdminPanel();
-            showNotification('Producto eliminado', 'success');
-        }
-    }
-    
-    function openProductForm(id = null) {
-        const form = document.getElementById('product-form');
-        form.reset();
-        
-        const product = id ? productData.find(p => p.id == id) : null;
-        document.getElementById('product-form-title').textContent = product ? 'Editar Producto' : 'Añadir Nuevo Producto';
-        document.getElementById('product-id').value = product ? product.id : '';
-        document.getElementById('product-title').value = product ? product.title : '';
-        document.getElementById('product-category').value = product ? product.category : '';
-        document.getElementById('product-price').value = product ? product.price : '';
-        document.getElementById('product-image').value = product ? product.image : '';
-        document.getElementById('product-stock').value = product ? product.stock : '';
-        
-        openModal('product-form-modal');
-    }
-    
-    function handleProductFormSubmit(e) {
-        e.preventDefault();
-        const id = document.getElementById('product-id').value;
-        const product = {
-            id: id ? parseInt(id) : Date.now(),
-            title: document.getElementById('product-title').value,
-            category: document.getElementById('product-category').value,
-            price: parseFloat(document.getElementById('product-price').value),
-            image: document.getElementById('product-image').value,
-            stock: parseInt(document.getElementById('product-stock').value)
-        };
-        
-        if (id) {
-            // Edit existing product
-            const index = productData.findIndex(p => p.id == id);
-            if (index !== -1) {
-                productData[index] = product;
-            }
-        } else {
-            // Add new product
-            productData.push(product);
-        }
-        
-        saveProducts();
-        displayProducts();
-        closeModal('product-form-modal');
-        openAdminPanel();
-        showNotification(`Producto ${id ? 'actualizado' : 'añadido'}`, 'success');
-    }
-
-    // === EVENT LISTENERS ===
-    function addAuthEventListeners() {
-        document.querySelectorAll('#login-btn-desktop, #login-btn-mobile').forEach(btn => {
-            btn.addEventListener('click', () => openModal('login-modal'));
-        });
-        
-        document.querySelectorAll('#logout-btn, #logout-btn-mobile').forEach(btn => {
-            btn.addEventListener('click', handleLogout);
-        });
-        
-        document.querySelectorAll('#admin-panel-btn, #admin-panel-btn-mobile').forEach(btn => {
-            btn.addEventListener('click', openAdminPanel);
-        });
-    }
-    
-    function initEventListeners() {
-        document.getElementById('menu-toggle').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-        
-        document.getElementById('cart-toggle').addEventListener('click', openCart);
-        document.getElementById('close-cart')?.addEventListener('click', closeCart);
-        document.getElementById('cart-overlay').addEventListener('click', closeCart);
-        
-        document.getElementById('login-form').addEventListener('submit', handleLogin);
-        document.getElementById('add-new-product-btn').addEventListener('click', () => openProductForm());
-        document.getElementById('product-form').addEventListener('submit', handleProductFormSubmit);
-        
-        document.querySelectorAll('.modal .close-modal').forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.closest('.modal').style.display = 'none';
-            });
-        });
-    }
-    
-    // === CART LOGIC ===
-    function openCart() {
-        document.getElementById('cart-drawer').classList.add('open');
-        document.getElementById('cart-overlay').style.display = 'block';
-        renderCart();
-    }
-    
-    function closeCart() {
-        document.getElementById('cart-drawer').classList.remove('open');
-        document.getElementById('cart-overlay').style.display = 'none';
-    }
-    
-    function addToCart(id) {
-        const product = productData.find(p => p.id == id);
-        if (!product || product.stock < 1) {
-            showNotification('Producto sin stock', 'error');
-            return;
-        }
-        
-        const existingItem = cart.find(item => item.id === id);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({...product, quantity: 1});
-        }
-        
-        localStorage.setItem('mysticTarotCart', JSON.stringify(cart));
-        updateCartCount();
-        showNotification(`${product.title} añadido al carrito`, 'success');
-        openCart();
-    }
-    
-    function updateCartCount() {
-        document.getElementById('cart-count').textContent = cart.reduce((total, item) => total + item.quantity, 0);
-    }
-    
-    function renderCart() {
-        const cartItems = document.getElementById('cart-items');
-        const subtotalElement = document.getElementById('cart-subtotal');
-        
-        if (cart.length === 0) {
-            cartItems.innerHTML = '<p class="p-4 text-center text-gray-500">Tu carrito está vacío.</p>';
-            subtotalElement.textContent = '$0.00';
-            return;
-        }
-        
-        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-        
-        cartItems.innerHTML = cart.map(item => `
-            <div class="flex items-center gap-4 p-4 border-b">
-                <img src="${item.image}" class="w-16 h-16 object-cover rounded"/>
-                <div class="flex-grow">
-                    <p class="font-semibold">${item.title}</p>
-                    <p class="text-sm text-gray-600">$${item.price.toFixed(2)}</p>
-                    <div class="flex items-center mt-2">
-                        <button data-id="${item.id}" data-action="decrease" class="cart-quantity-btn">-</button>
-                        <span class="mx-2">${item.quantity}</span>
-                        <button data-id="${item.id}" data-action="increase" class="cart-quantity-btn">+</button>
-                    </div>
-                </div>
-                <button data-id="${item.id}" class="cart-remove-btn text-red-500"><i class="fas fa-trash"></i></button>
-            </div>
-        `).join('');
-        
-        cartItems.querySelectorAll('.cart-quantity-btn').forEach(btn => {
-            btn.addEventListener('click', updateCartQuantity);
-        });
-        
-        cartItems.querySelectorAll('.cart-remove-btn').forEach(btn => {
-            btn.addEventListener('click', removeFromCart);
-        });
-    }
-    
-    function updateCartQuantity(e) {
-        const id = e.target.dataset.id;
-        const action = e.target.dataset.action;
-        const item = cart.find(item => item.id == id);
-        
-        if (item) {
-            if (action === 'increase') {
-                item.quantity++;
-            } else if (action === 'decrease') {
-                item.quantity--;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(item => item.id != id);
-                }
-            }
-            
-            localStorage.setItem('mysticTarotCart', JSON.stringify(cart));
-            renderCart();
-            updateCartCount();
-        }
-    }
-    
-    function removeFromCart(e) {
-        const id = e.currentTarget.dataset.id;
-        cart = cart.filter(item => item.id != id);
-        localStorage.setItem('mysticTarotCart', JSON.stringify(cart));
-        renderCart();
-        updateCartCount();
-        showNotification('Producto eliminado del carrito', 'success');
-    }
-
-    // === UI & UX HELPERS ===
-    function openModal(id) {
-        document.getElementById(id).style.display = 'flex';
-    }
-    
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-    
-    function displayProducts() {
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = '';
-        
-        productData.forEach((product, index) => {
-            const card = document.createElement('div');
-            card.className = 'product-card reveal';
-            card.style.transitionDelay = `${50 * index}ms`;
-            
-            card.innerHTML = `
-                <div class="product-image-container">
-                    <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="text-sm text-gray-500">${product.category}</h3>
-                    <h2 class="text-lg font-semibold mb-1 serif">${product.title}</h2>
-                    <p class="text-xl font-bold mystic-text">$${product.price.toFixed(2)}</p>
-                </div>
-                <div class="add-to-cart-flyout">
-                    <button class="btn-primary w-full !py-2 !text-sm" onclick="addToCart(${product.id})">Añadir al Carrito</button>
-                </div>
-            `;
-            
-            grid.appendChild(card);
-        });
-        
-        // Initialize reveal animations for the new products
-        initScrollAnimations();
-    }
-    
-    function showNotification(message, type) {
-        const container = document.getElementById('notification-container');
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.textContent = message;
-        container.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 10);
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                notification.remove();
-            }, 400);
-        }, 3000);
-    }
-    
-    function initHeaderScroll() {
-        const header = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('header-scrolled', window.scrollY > 50);
-        });
-    }
-    
-    function initScrollAnimations() {
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.reveal').forEach(element => {
-            observer.observe(element);
-        });
-    }
-    
     function initParticles() {
         if (typeof particlesJS !== 'undefined') {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 40, density: { enable: true, value_area: 800 } },
-                    color: { value: '#ffffff' },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1 } },
-                    size: { value: 2, random: true },
-                    move: { enable: true, speed: 1, random: true, direction: 'none', out_mode: 'out' }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: { onhover: { enable: false }, onclick: { enable: false } }
-                }
-            }, function() {});
+            particlesJS('particles-js', { 
+                "particles": { 
+                    "number": { 
+                        "value": 40, 
+                        "density": { 
+                            "enable": true, 
+                            "value_area": 800 
+                        } 
+                    }, 
+                    "color": { 
+                        "value": "#ffffff" 
+                    }, 
+                    "shape": { 
+                        "type": "circle", 
+                        "stroke": { 
+                            "width": 0, 
+                            "color": "#000000" 
+                        } 
+                    }, 
+                    "opacity": { 
+                        "value": 0.5, 
+                        "random": true, 
+                        "anim": { 
+                            "enable": true, 
+                            "speed": 1, 
+                            "opacity_min": 0.1, 
+                            "sync": false 
+                        } 
+                    }, 
+                    "size": { 
+                        "value": 2, 
+                        "random": true, 
+                        "anim": { 
+                            "enable": false 
+                        } 
+                    }, 
+                    "line_linked": { 
+                        "enable": false 
+                    }, 
+                    "move": { 
+                        "enable": true, 
+                        "speed": 1, 
+                        "direction": "none", 
+                        "random": true, 
+                        "straight": false, 
+                        "out_mode": "out", 
+                        "bounce": false 
+                    } 
+                }, 
+                "interactivity": { 
+                    "detect_on": "canvas", 
+                    "events": { 
+                        "onhover": { 
+                            "enable": false 
+                        }, 
+                        "onclick": { 
+                            "enable": false 
+                        }, 
+                        "resize": true 
+                    } 
+                }, 
+                "retina_detect": true 
+            });
         }
     }
-    
+
     function initSwipers() {
+        // Testimonials Swiper
         if (typeof Swiper !== 'undefined') {
             new Swiper('.testimonials-swiper', {
                 loop: true,
                 slidesPerView: 1,
                 spaceBetween: 30,
-                autoplay: { delay: 5000 },
-                pagination: { el: '.swiper-pagination', clickable: true },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
                 breakpoints: {
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
                 }
             });
         }
     }
-    
+
     function initCardOfTheDay() {
         const flipper = document.getElementById('tarot-flipper');
+        const instruction = document.getElementById('card-instruction');
+        
         if (!flipper) return;
         
-        const instruction = document.getElementById('card-instruction');
-        const cards = [
+        let isFlipped = false;
+
+        const tarotCards = [
             { 
-                name: 'El Mago', 
-                meaning: 'Manifestación, poder, recursos. Hoy tienes las herramientas para crear tu realidad.', 
-                image: 'https://i.imgur.com/8YV4a2s.png' 
+                name: "El Mago", 
+                meaning: "Manifestación, poder, recursos. Hoy tienes todas las herramientas para crear tu realidad.", 
+                image: "https://i.pinimg.com/474x/e8/53/9c/e8539c79ad214d131f364045cd74246e.jpg" 
             },
             { 
-                name: 'La Sacerdotisa', 
-                meaning: 'Intuición, misterio. Escucha tu voz interior.', 
-                image: 'https://i.imgur.com/2Xk8J2A.png' 
+                name: "La Sacerdotisa", 
+                meaning: "Intuición, misterio, subconsciente. Escucha tu voz interior, no todo es lo que parece.", 
+                image: "https://preview.redd.it/what-is-your-take-on-the-high-priestess-v0-3gssdko1p4fe1.jpg?width=640&format=pjpg&auto=webp&s=649f1d5847db5a44727502c729bbeb0ebb5217f3" 
             },
             { 
-                name: 'El Sol', 
-                meaning: 'Alegría, éxito, vitalidad. Disfruta la energía positiva.', 
-                image: 'https://i.imgur.com/J3tG3sC.png' 
+                name: "La Emperatriz", 
+                meaning: "Fertilidad, feminidad, abundancia. Es un día para nutrirte a ti y a tus proyectos.", 
+                image: "https://mantenlosimple.com/wp-content/uploads/2023/04/emperatriz-tarot.jpg?w=392" 
             },
             { 
-                name: 'La Estrella', 
-                meaning: 'Esperanza, inspiración, serenidad. Mantén la fe.', 
-                image: 'https://i.imgur.com/lVqD2gA.png' 
+                name: "El Sol", 
+                meaning: "Alegría, éxito, vitalidad. Disfruta de la claridad y la energía positiva que te rodea.", 
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLt3saOme7iGNpQ1Wg166gQ6RhwkaXXNWRMA&s"
+            },
+            { 
+                name: "La Estrella", 
+                meaning: "Esperanza, inspiración, serenidad. Mantén la fe en tu camino, estás siendo guiado.", 
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ3kpp-Iqdrt_gw_4zMfDDyOwhiRD4cVvViQ&s" 
             }
         ];
-        
-        const revealCard = () => {
-            const today = new Date().toDateString();
+
+        flipper.addEventListener('click', () => {
+            if (isFlipped) return;
+
             let card = JSON.parse(sessionStorage.getItem('dailyCard'));
+
+            // Check if we already have a card for today
+            const today = new Date().toDateString();
+            const storedDate = sessionStorage.getItem('dailyCardDate');
             
-            if (!card || sessionStorage.getItem('dailyCardDate') !== today) {
-                card = cards[Math.floor(Math.random() * cards.length)];
+            if (!card || storedDate !== today) {
+                card = tarotCards[Math.floor(Math.random() * tarotCards.length)];
                 sessionStorage.setItem('dailyCard', JSON.stringify(card));
                 sessionStorage.setItem('dailyCardDate', today);
             }
@@ -613,17 +674,355 @@
             document.getElementById('card-name').textContent = card.name;
             document.getElementById('card-meaning').textContent = card.meaning;
             document.getElementById('card-image').src = card.image;
-            instruction.textContent = 'El mensaje ha sido revelado. Vuelve mañana.';
+            instruction.textContent = "El mensaje ha sido revelado. Vuelve mañana para una nueva guía.";
+            
             flipper.classList.add('is-flipped');
-        };
+            isFlipped = true;
+        });
+
+        // Check if card was already revealed today
+        const today = new Date().toDateString();
+        const storedDate = sessionStorage.getItem('dailyCardDate');
         
-        flipper.addEventListener('click', revealCard, { once: true });
-        
-        // If already revealed today, show it immediately
-        if (sessionStorage.getItem('dailyCardDate') === new Date().toDateString()) {
-            revealCard();
+        if (storedDate === today) {
+            flipper.click();
         }
     }
+
+
+    // --- CORE FUNCTIONALITY ---
+    
+    // Global variables
+    const productData = [
+        {
+            id: 1,
+            title: "Mazo Rider-Waite",
+            price: 35.99,
+            category: "Tarot",
+            images: ["https://http2.mlstatic.com/D_NQ_NP_839489-MLA85924442056_062025-O.webp"]  
+                     }             , 
+        {
+            id: 2,
+            title: "Péndulo de Cuarzo",
+            price: 24.99,
+            category: "Péndulos",
+            images: ["https://ekreaeltaller.com/wp-content/uploads/2023/02/P-DIJE16-CUARZOBLANCO-jpg.webp"]
+        },
+        {
+            id: 5,
+            title: "Set de Cristales",
+            price: 49.99,
+            category: "Cristales",
+            images: ["https://ae-pic-a1.aliexpress-media.com/kf/S568a3857f3854226824a0239ff249dd5N.jpg_640x640q75.jpg_.avif"]
+        },
+        {
+            id: 6,
+            title: "Mazo Osho Zen",
+            price: 42.99,
+            category: "Tarot",
+            images: ["https://http2.mlstatic.com/D_NQ_NP_822127-MLC51036502211_082022-O.webp"]
+        },
+        {
+            id: 7,
+            title: "Péndulo Amatista",
+            price: 32.99,
+            category: "Péndulos",
+            images: ["https://cdnx.jumpseller.com/iconic/image/45054563/thumb/719/719?1706583233"]
+        },
+        {
+            id: 8,
+            title: "Atrapasueños",
+            price: 27.99,
+            category: "Rituales",
+            images: ["https://www.dormitorum.es/wp-content/uploads/2018/06/pexels-larissa-farber-7379693-1.jpg"],
+      }
+    ];
+    
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let selectedMaterial = null;
+    let currentProductId = null;
+
+    function displayProducts() {
+        const productGrid = document.getElementById('product-grid');
+        if (!productGrid) return;
+        
+        productGrid.innerHTML = ''; 
+        
+        productData.forEach((product, index) => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card reveal';
+            productCard.style.transitionDelay = `${index * 50}ms`;
+
+            productCard.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.images[0]}" alt="${product.title}" class="product-image" loading="lazy">
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="text-sm text-gray-500">${product.category}</h3>
+                    <h2 class="text-lg font-semibold mb-1 serif">${product.title}</h2>
+                    <p class="text-xl font-bold mystic-text">$${product.price.toFixed(2)}</p>
+                </div>
+                <div class="add-to-cart-flyout">
+                    <button class="btn-primary w-full !py-2 !text-sm add-to-cart-btn" data-id="${product.id}">Añadir al Carrito</button>
+                </div>
+            `;
+            productGrid.appendChild(productCard);
+        });
+
+        // Add event listeners to the add to cart buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const productId = parseInt(button.dataset.id);
+                addToCart(productId, 1, 'Standard');
+            });
+        });
+    }
+
+    function addToCart(productId, quantity, material) {
+        const product = productData.find(p => p.id === productId);
+        if (!product) return;
+
+        // Check if product is already in cart
+        const existingItemIndex = cart.findIndex(item => item.productId === productId && item.material === material);
+        
+        if (existingItemIndex !== -1) {
+            // Update quantity if product already exists
+            cart[existingItemIndex].quantity += quantity;
+        } else {
+            // Add new item to cart
+            const cartItem = {
+                id: Date.now(),
+                productId: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.images[0],
+                material: material,
+                quantity: quantity
+            };
+            cart.push(cartItem);
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        showNotification(`${product.title} añadido al carrito!`, 'success');
+        
+        // Open cart drawer to show the new item
+        document.getElementById('cart-drawer').classList.add('open');
+        document.getElementById('cart-overlay').style.display = 'block';
+        renderCartItems();
+    }
+
+    function initEventListeners() {
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        
+        // Cart toggle
+        const cartToggle = document.getElementById('cart-toggle');
+        if (cartToggle) {
+            cartToggle.addEventListener('click', () => {
+                document.getElementById('cart-drawer').classList.add('open');
+                document.getElementById('cart-overlay').style.display = 'block';
+                renderCartItems();
+            });
+        }
+        
+        // Close cart
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartOverlay = document.getElementById('cart-overlay');
+        
+        if (closeCartBtn) {
+            closeCartBtn.addEventListener('click', closeCart);
+        }
+        
+        if (cartOverlay) {
+            cartOverlay.addEventListener('click', closeCart);
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    }
+    
+    function closeCart() {
+        document.getElementById('cart-drawer').classList.remove('open');
+        document.getElementById('cart-overlay').style.display = 'none';
+    }
+
+    function renderCartItems() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartShipping = document.getElementById('cart-shipping');
+        const cartTotal = document.getElementById('cart-total');
+        
+        if (!cartItemsContainer) return;
+        
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `<div class="p-8 text-center text-gray-500">Tu carrito está vacío.</div>`;
+            if (cartSubtotal) cartSubtotal.textContent = '$0.00';
+            if (cartShipping) cartShipping.textContent = '$0.00';
+            if (cartTotal) cartTotal.textContent = '$0.00';
+            return;
+        }
+        
+        // Calculate totals
+        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        const shipping = subtotal > 0 ? 5.99 : 0; // Example shipping calculation
+        const total = subtotal + shipping;
+        
+        // Update totals
+        if (cartSubtotal) cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+        if (cartShipping) cartShipping.textContent = `$${shipping.toFixed(2)}`;
+        if (cartTotal) cartTotal.textContent = `$${total.toFixed(2)}`;
+        
+        // Render cart items
+        cartItemsContainer.innerHTML = cart.map(item => `
+            <div class="flex items-center gap-4 p-4 border-b">
+                <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded-md" loading="lazy">
+                <div class="flex-grow">
+                    <p class="font-semibold">${item.title}</p>
+                    <p class="text-sm text-gray-600">${item.material}</p>
+                    <div class="flex items-center mt-2">
+                        <button class="text-gray-500 change-quantity" data-id="${item.id}" data-action="decrease">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button class="text-gray-500 change-quantity" data-id="${item.id}" data-action="increase">+</button>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="font-bold">$${(item.price * item.quantity).toFixed(2)}</p>
+                    <button class="text-red-500 text-sm remove-item mt-1" data-id="${item.id}">Eliminar</button>
+                </div>
+            </div>
+        `).join('');
+        
+        // Add event listeners to quantity buttons and remove buttons
+        document.querySelectorAll('.change-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemId = parseInt(this.dataset.id);
+                const action = this.dataset.action;
+                updateCartItemQuantity(itemId, action);
+            });
+        });
+        
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemId = parseInt(this.dataset.id);
+                removeCartItem(itemId);
+            });
+        });
+    }
+    
+    function updateCartItemQuantity(itemId, action) {
+        const itemIndex = cart.findIndex(item => item.id === itemId);
+        
+        if (itemIndex !== -1) {
+            if (action === 'increase') {
+                cart[itemIndex].quantity += 1;
+            } else if (action === 'decrease' && cart[itemIndex].quantity > 1) {
+                cart[itemIndex].quantity -= 1;
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+    }
+    
+    function removeCartItem(itemId) {
+        cart = cart.filter(item => item.id !== itemId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+        showNotification('Producto eliminado del carrito', 'success');
+    }
+
+    function updateCartCount() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        const cartCount = document.getElementById('cart-count');
+        
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+
+    function showNotification(message, type) {
+        const notificationContainer = document.getElementById('notification-container') || document.body;
+        
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        
+        notificationContainer.appendChild(notification);
+        
+        // Trigger animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    function initHeaderScroll() {
+        const header = document.getElementById('main-header');
+        if (!header) return;
+        
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('header-scrolled', window.scrollY > 50);
+        });
+    }
+
+    function initScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
     </script>
 </body>
 </html>
