@@ -93,7 +93,7 @@
         #particles-js {
             position: absolute;
             width: 100%;
-            height: 100%;
+            height: 30%;
             top: 0;
             left: 0;
             z-index: 1;
@@ -140,6 +140,13 @@
             padding: 1.5rem;
         }
         
+        /* Product description */
+        .product-description {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
         /* Product Card Enhanced Hover */
         .add-to-cart-flyout {
             position: absolute;
@@ -160,7 +167,7 @@
             border-radius: 0.5rem;
             opacity: 0;
             transition: opacity var(--transition-speed) ease;
-            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.2), transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(96, 73, 150, 0.2), transparent 70%);
             pointer-events: none;
         }
         .product-card:hover::before {
@@ -194,7 +201,7 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
                 <a href="#" class="text-2xl font-bold serif mystic-text flex items-center gap-2">
-                    <i class="fas fa-star-and-crescent"></i> Mystic Tarot
+                    <i class="fas fa-star-and-crescent"></i> Hera Tarot
                 </a>
                 <div class="flex items-center space-x-6">
                     <nav class="hidden md:flex space-x-6">
@@ -231,7 +238,9 @@
 
     <main>
         <!-- Hero Banner with Particles -->
-        <section class="hero-banner" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/12/19/31/tarot-cards-2743904_1280.jpg');">
+        <!-- <section class="hero-banner" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/12/19/31/tarot-cards-2743904_1280.jpg');"> -->
+            <section class="hero-banner" style="background-image: url('https://i.imgur.com/5rKb095.png');">
+            <div class="container mx-auto px-4"
             <div id="particles-js"></div>
             <div class="hero-content text-white px-4 reveal is-visible">
                 <h1 class="text-5xl md:text-7xl font-bold mb-4">Ilumina Tu Camino</h1>
@@ -240,36 +249,45 @@
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section class="py-20 bg-white" id="services">
-            <div class="container mx-auto px-4">
-                <div class="mb-16 text-center reveal">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Servicios Disponibles</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">Conecta con tu yo interior y descubre lo que el futuro tiene preparado para ti</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="service-card reveal" style="transition-delay: 100ms;">
-                        <div class="service-icon"><i class="fas fa-star-and-crescent"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Tarot</h3>
-                        <p class="text-gray-600 mb-4">Tenemos diferentes tipos de lecturas, para todas las necesidades.</p>
-                        
-                    </div>
-                    <div class="service-card reveal" style="transition-delay: 200ms;">
-                        <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Rituales</h3>
-                        <p class="text-gray-600 mb-4">Ofrecemos actos que cambian el curso de tu vida.</p>
-                        
-                    </div>
-                    <div class="service-card reveal" style="transition-delay: 300ms;">
-                        <div class="service-icon"><i class="fas fa-gem"></i></div>
-                        <h3 class="text-xl font-semibold mb-2">Productos</h3>
-                        <p class="text-gray-600 mb-4">Encuentra los instrumentos perfectos para tu práctica espiritual.</p>
-                        
-                        
-                    </div>
-                </div>
+          
+<!-- Services Section -->
+<section class="py-20 bg-white" id="services">
+    <div class="container mx-auto px-4">
+        <div class="mb-16 text-center reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Nuestros Dones a tu Disposición</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Conecta con tu yo interior y descubre lo que el futuro tiene preparado para ti a través de nuestros servicios especializados.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Card 1: Tarot -->
+            <div class="service-card reveal" style="transition-delay: 100ms;">
+                <div class="service-icon"><i class="fas fa-star-and-crescent"></i></div>
+                <h3 class="text-xl font-semibold mb-2">Lecturas de Tarot</h3>
+                <p class="text-gray-600 mb-4">Ofrecemos diferentes tipos de lecturas para iluminar cada aspecto de tu vida.</p>
+                <a href="#tarot" class="btn-primary">Ver Lecturas</a>
             </div>
-        </section>
+
+            <!-- Card 2: Rituales -->
+            <div class="service-card reveal" style="transition-delay: 200ms;">
+                <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3 class="text-xl font-semibold mb-2">Rituales Energéticos</h3>
+                <p class="text-gray-600 mb-4">Actos de poder canalizados para transformar tu energía y atraer tus deseos.</p>
+                <a href="#rituals" class="btn-primary">Ver Rituales</a>
+            </div>
+
+            <!-- Card 3: Productos -->
+            <div class="service-card reveal" style="transition-delay: 300ms;">
+                <div class="service-icon"><i class="fas fa-gem"></i></div>
+                <h3 class="text-xl font-semibold mb-2">Productos Esotéricos</h3>
+                <p class="text-gray-600 mb-4">Encuentra los instrumentos perfectos para tu práctica espiritual.</p>
+                <a href="#rituals" class="btn-primary">Explorar Productos</a>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+  
 
         <!-- About Me Section -->
         <section class="py-20 bg-gray-50" id="about">
@@ -283,10 +301,18 @@
                         <p class="text-gray-600 mb-4 text-lg">Hola, alma curiosa. Soy Verónica, y he dedicado mi vida a interpretar los susurros del universo a través de las cartas. Mi misión no es predecir un futuro inamovible, sino iluminar los posibles caminos que se abren ante ti, dándote la claridad y el poder para que elijas con confianza.</p>
                         <p class="text-gray-600 mb-6">Cada lectura es un espacio sagrado, libre de juicio, donde exploramos juntas tus dudas, miedos y anhelos. Permíteme ser tu guía en este viaje de autodescubrimiento.</p>
                         <p class="signature">Con cariño, Verónica</p>
-                    </div>
+
+                <!-- BOTÓN DE WHATSAPP AÑADIDO AQUÍ -->
+                <div class="mt-8">
+                    <a href="https://wa.me/56950186829" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        Contáctame por WhatsApp
+                    </a>
                 </div>
+
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
         <!-- Product Listing -->
         <section class="py-20" id="rituals">
