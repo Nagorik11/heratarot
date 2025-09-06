@@ -40,9 +40,9 @@
         .product-image-container { position: relative; overflow: hidden; padding-top: 100%; background-color: #f8f8f8; }
         .product-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .product-card:hover .product-image { transform: scale(1.05); }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); animation: fadeIn 0.3s; backdrop-filter: blur(5px); }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); animation: fadeIn 0.3s; backdrop-filter: blur(5px); align-items: center; justify-content: center; }
         @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
-        .modal-content { background-color: rgba(255,255,255,0.95); margin: 2% auto; max-width: 1000px; width: 90%; max-height: 90vh; overflow-y: auto; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideUp 0.4s; backdrop-filter: blur(10px); }
+        .modal-content { background-color: rgba(255,255,255,0.95); max-width: 1000px; width: 90%; max-height: 90vh; overflow-y: auto; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideUp 0.4s; backdrop-filter: blur(10px); }
         @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
         .cart-drawer { position: fixed; top: 0; right: -400px; width: 380px; max-width: 100%; height: 100vh; background-color: white; z-index: 1000; box-shadow: 0 0 20px rgba(0,0,0,0.2); transition: right 0.4s ease; overflow-y: auto; }
         .cart-drawer.open { right: 0; }
@@ -107,39 +107,7 @@
             color: var(--color-primary-dark);
         }
 
-        /* Card of the Day Section */
-        #card-of-the-day {
-            background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, var(--color-mystic) 0%, #3b0764 100%);
-        }
-        .tarot-flipper {
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .tarot-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-        .tarot-flipper.is-flipped .tarot-card-inner {
-            transform: rotateY(180deg);
-        }
-        .tarot-card-front, .tarot-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-        .tarot-card-back {
-            transform: rotateY(180deg);
-            background-color: white;
-            padding: 1.5rem;
-        }
-        
+       
         /* Product description */
         .product-description {
             margin-top: 1rem;
@@ -148,18 +116,7 @@
         }
 
         /* Product Card Enhanced Hover */
-        .add-to-cart-flyout {
-            position: absolute;
-            bottom: -60px; /* Start hidden */
-            left: 0;
-            right: 0;
-            padding: 0.75rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.5));
-            transition: bottom var(--transition-speed) ease;
-        }
-        .product-card:hover .add-to-cart-flyout {
-            bottom: 0;
-        }
+      
         .product-card::before {
             content: '';
             position: absolute;
@@ -208,20 +165,8 @@
                         <a href="#" class="text-gray-700 hover:text-gray-900">Inicio</a>
                         <a href="#services" class="text-gray-700 hover:text-gray-900">Servicios</a>
                         <a href="#about" class="text-gray-700 hover:text-gray-900">Sobre Mí</a>
-                        <a href="#rituals" class="text-gray-700 hover:text-gray-900">Rituales</a>
-                        <a href="#tarot" class="text-gray-700 hover:text-gray-900">Tarot</a>
                     </nav>
-                    <div class="flex items-center space-x-4">
-                        <button class="text-gray-700 hover:text-gray-900"><i class="far fa-heart"></i></button>
-                        <button class="text-gray-700 hover:text-gray-900"><i class="far fa-user"></i></button>
-                        <button id="cart-toggle" class="text-gray-700 hover:text-gray-900 relative">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span id="cart-count" class="absolute -top-2 -right-2 bg-[#8B5CF6] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-                        </button>
-                        <button class="md:hidden text-gray-700 hover:text-gray-900" id="menu-toggle">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                    </div>
+                   
                 </div>
             </div>
             <div class="md:hidden hidden" id="mobile-menu">
@@ -229,18 +174,15 @@
                     <a href="#" class="text-gray-700 hover:text-gray-900">Inicio</a>
                     <a href="#services" class="text-gray-700 hover:text-gray-900">Servicios</a>
                     <a href="#about" class="text-gray-700 hover:text-gray-900">Sobre Mí</a>
-                    <a href="#products" class="text-gray-700 hover:text-gray-900">Productos</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-gray-900">Testimonios</a>
                 </nav>
             </div>
         </div>
     </header>
-
+</body>
     <main>
         <!-- Hero Banner with Particles -->
         <!-- <section class="hero-banner" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/12/19/31/tarot-cards-2743904_1280.jpg');"> -->
-            <section class="hero-banner" style="background-image: url('https://i.imgur.com/5rKb095.png');">
-            <div class="container mx-auto px-4"
+        <section class="hero-banner" style="background-image: url('https://i.imgur.com/5rKb095.png');">
             <div id="particles-js"></div>
             <div class="hero-content text-white px-4 reveal is-visible">
                 <h1 class="text-5xl md:text-7xl font-bold mb-4">Ilumina Tu Camino</h1>
@@ -288,7 +230,6 @@
 </section>
 
   
-
         <!-- About Me Section -->
         <section class="py-20 bg-gray-50" id="about">
             <div class="container mx-auto px-4">
@@ -310,16 +251,17 @@
                 </div>
 
             </div>
-        </div>
-    </div>
-</section>
+    
+                </div>
+            </div>
+        </section>
 
-        <!-- Product Listing -->
+        <!-- Ritual Listing -->
         <section class="py-20" id="rituals">
             <div class="container mx-auto px-4">
                  <div class="mb-16 text-center reveal">
                      <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Rituales Personalizados</h2>
-                     <p class="text-gray-600 max-w-2xl mx-auto">Influye en tu destino con nuestros rituales seleccionados cuidadosamente para potenciar tu energía y espiritualidad.</p>    
+                     <p class="text-gray-600 max-w-2xl mx-auto">Influye en tu destino con nuestros rituales seleccionados cuidadosamente para potenciar tu energía y espiritualidad. Para más información, contáctame por WhatsApp.</p>    
                  </div>
                  <div class="w-full md:w-3/4 lg:w-4/5 mx-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 reveal" id="product-grid">
@@ -327,19 +269,18 @@
                     </div>
                  </div>
                  <div class="mt-12 text-center reveal">
-                     <button class="btn-secondary">Ver todos los productos</button>
+                   
                  </div>
             </div>
         </section>
         
-        <!-- Testimonials Section with Swiper -->
-       
-         <!-- Product Listing -->
+        
+         <!-- Tarot Listing -->
         <section class="py-20" id="tarot">
             <div class="container mx-auto px-4">
                  <div class="mb-16 text-center reveal">
                      <h2 class="text-3xl md:text-4xl font-bold mb-2 section-title">Servicios de Tarot</h2>
-                     <p class="text-gray-600 max-w-2xl mx-auto">Explora nuestras lecturas de tarot personalizadas para cada necesidad.</p>
+                     <p class="text-gray-600 max-w-2xl mx-auto">Explora nuestras lecturas de tarot personalizadas para cada necesidad. Para más información, contáctame por WhatsApp.</p>
                  </div>
                  <div class="w-full md:w-3/4 lg:w-4/5 mx-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 reveal" id="tarot-grid">
@@ -347,24 +288,12 @@
                     </div>
                  </div>
                  <div class="mt-12 text-center reveal">
-                     <button class="btn-secondary">Ver todos los productos</button>
+            
                  </div>
             </div>
         </section>
 
-        <!-- Newsletter Section -->
-        <section class="py-20" id="newsletter">
-            <div class="container mx-auto px-4 reveal">
-                <div class="max-w-xl mx-auto text-center">
-                    <h2 class="text-3xl font-bold mb-4">Únete a Nuestra Comunidad Mística</h2>
-                    <p class="mb-6 text-gray-300">Suscríbete para recibir horóscopos semanales, acceso a contenido exclusivo y ofertas especiales.</p>
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <input type="email" placeholder="Tu dirección de email" class="flex-grow px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] bg-white/10 text-white placeholder-gray-300">
-                        <button class="btn-primary bg-[var(--color-accent)] text-[var(--color-secondary)] hover:bg-amber-500">Suscribirse</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+       
     </main>
     
     <!-- Footer -->
@@ -407,39 +336,35 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 Mystic Tarot. Todos los derechos reservados.</p>
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 AEON Systems. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Cart Drawer -->
-    <div class="cart-overlay" id="cart-overlay"></div>
-    <div class="cart-drawer" id="cart-drawer">
-        <div class="p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold">Tu Carrito</h2>
-                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
+
+    <!-- Product/Service Detail Modal -->
+    <div id="product-modal" class="modal p-4">
+        <div class="modal-content p-4 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start relative">
+            <!-- Close Button -->
+            <button id="modal-close-btn" class="absolute top-2 right-4 text-gray-500 hover:text-gray-800 text-3xl font-light z-10">&times;</button>
+
+            <!-- Image Gallery -->
+            <div id="modal-image-container" class="w-full">
+                <img id="modal-main-image" src="" alt="Product Image" class="w-full h-auto object-cover rounded-lg shadow-md">
             </div>
-            <div id="cart-items" class="mb-4">
-                <!-- Cart items will be inserted here -->
+
+            <!-- Product Info -->
+            <div class="flex flex-col h-full">
+                <h2 id="modal-title" class="text-3xl font-bold serif mb-2">Product Title</h2>
+                <p id="modal-category" class="text-gray-500 mb-4">Category</p>
+                <p id="modal-price" class="text-3xl font-bold mystic-text mb-6">$</p>
+                <p id="modal-description" class="text-gray-600 mb-6 flex-grow">
+                    This is a placeholder for the product description. It will provide more details about the service or item.
+                </p>
+                <a href="https://wa.me/56950186829" target="_blank" rel="noopener noreferrer" class="btn-primary w-full text-center mt-auto">
+                    Consultar por WhatsApp
+                </a>
             </div>
-            <div class="border-t pt-4 mb-4">
-                <div class="flex justify-between mb-2">
-                    <span class="font-semibold">Subtotal:</span>
-                    <span id="cart-subtotal" class="font-bold">$0.00</span>
-                </div>
-                <div class="flex justify-between mb-4">
-                    <span class="font-semibold">Envío:</span>
-                    <span id="cart-shipping" class="font-bold">$0.00</span>
-                </div>
-                <div class="flex justify-between text-lg">
-                    <span class="font-semibold">Total:</span>
-                    <span id="cart-total" class="font-bold">$0.00</span>
-                </div>
-            </div>
-            <button class="btn-primary w-full">Proceder al Pago</button>
         </div>
     </div>
 
@@ -450,19 +375,82 @@
     document.addEventListener('DOMContentLoaded', function() {
         // --- INITIALIZATION ---
         initParticles();
-        initSwipers();
-        initCardOfTheDay();
+        initProductModals();
         displayProducts();
         displayTarotServices();
         
-        updateCartCount();
-        initEventListeners();
         initScrollAnimations();
         initHeaderScroll();
     });
 
     // --- NEW FEATURES ---
 
+    function openProductModal(productId) {
+        const allProducts = [...productData, ...tarotData];
+        const product = allProducts.find(p => p.id === productId);
+
+        if (!product) {
+            console.error('Product not found:', productId);
+            return;
+        }
+
+        const modal = document.getElementById('product-modal');
+        if (!modal) return;
+
+        // Descriptions for services
+        const descriptions = {
+            // Rituals
+            1: "Este ritual está diseñado para limpiar obstáculos y atraer nuevas oportunidades, abriendo tus caminos hacia el éxito y la prosperidad.",
+            2: "Fortalece el vínculo y la armonía en tu relación. Este ritual crea un escudo de energía positiva para proteger a la pareja de influencias negativas.",
+            5: "Atrae dulzura, amor y cariño a tu vida o a una relación existente. Ideal para suavizar conflictos y fomentar la conexión emocional.",
+            6: "Un poderoso ritual enfocado en reavivar la llama y facilitar el regreso de un ser amado, trabajando sobre las energías del amor y la reconciliación.",
+            7: "Libérate de ataduras energéticas del pasado que ya no te sirven. Este ritual ayuda a cortar lazos kármicos para que puedas avanzar con libertad.",
+            // Tarot
+            8: "Una tirada de 3 cartas para obtener una visión general rápida sobre una pregunta específica. Ideal para una guía concisa y directa.",
+            9: "Explora la dinámica de tu relación. Esta lectura analiza las energías, los desafíos y el potencial de la conexión con tu pareja o persona de interés.",
+            10: "Identifica y disuelve los bloqueos energéticos que te impiden avanzar. Esta lectura te entrega una 'llave' simbólica para abrir nuevos caminos en tu vida."
+        };
+
+        // Populate modal
+        modal.querySelector('#modal-main-image').src = product.images[0];
+        modal.querySelector('#modal-main-image').alt = product.title;
+        modal.querySelector('#modal-title').textContent = product.title;
+        modal.querySelector('#modal-category').textContent = product.category;
+        modal.querySelector('#modal-price').textContent = `$${product.price.toLocaleString('es-CL')}`;
+        modal.querySelector('#modal-description').textContent = descriptions[product.id] || 'Contacta para más detalles sobre este servicio.';
+
+        // Show modal
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductModal() {
+        const modal = document.getElementById('product-modal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function initProductModals() {
+        // Listener to open the modal
+        document.body.addEventListener('click', function(event) {
+            const button = event.target.closest('.view-details-btn');
+            if (button) {
+                event.preventDefault();
+                const productId = parseInt(button.dataset.id);
+                openProductModal(productId);
+            }
+        });
+
+        const modal = document.getElementById('product-modal');
+        if (!modal) return;
+
+        modal.querySelector('#modal-close-btn')?.addEventListener('click', closeProductModal);
+        modal.addEventListener('click', (event) => (event.target === modal) && closeProductModal());
+        window.addEventListener('keydown', (event) => (event.key === 'Escape' && modal.style.display !== 'none') && closeProductModal());
+    }
+    
     function initParticles() {
         if (typeof particlesJS !== 'undefined') {
             particlesJS('particles-js', { 
@@ -531,103 +519,8 @@
         }
     }
 
-    function initSwipers() {
-        // Testimonials Swiper
-        if (typeof Swiper !== 'undefined') {
-            new Swiper('.testimonials-swiper', {
-                loop: true,
-                slidesPerView: 1,
-                spaceBetween: 30,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 2,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                    },
-                }
-            });
-        }
-    }
 
-    function initCardOfTheDay() {
-        const flipper = document.getElementById('tarot-flipper');
-        const instruction = document.getElementById('card-instruction');
-        
-        if (!flipper) return;
-        
-        let isFlipped = false;
-
-        const tarotCards = [
-            { 
-                name: "El Mago", 
-                meaning: "Manifestación, poder, recursos. Hoy tienes todas las herramientas para crear tu realidad.", 
-                image: "https://i.imgur.com/8YV4a2s.png" 
-            },
-            { 
-                name: "La Sacerdotisa", 
-                meaning: "Intuición, misterio, subconsciente. Escucha tu voz interior, no todo es lo que parece.", 
-                image: "https://i.imgur.com/2Xk8J2A.png" 
-            },
-            { 
-                name: "La Emperatriz", 
-                meaning: "Fertilidad, feminidad, abundancia. Es un día para nutrirte a ti y a tus proyectos.", 
-                image: "https://i.imgur.com/N7f8X1v.png" 
-            },
-            { 
-                name: "El Sol", 
-                meaning: "Alegría, éxito, vitalidad. Disfruta de la claridad y la energía positiva que te rodea.", 
-                image: "https://i.imgur.com/J3tG3sC.png" 
-            },
-            { 
-                name: "La Estrella", 
-                meaning: "Esperanza, inspiración, serenidad. Mantén la fe en tu camino, estás siendo guiado.", 
-                image: "https://i.imgur.com/lVqD2gA.png" 
-            }
-        ];
-
-        flipper.addEventListener('click', () => {
-            if (isFlipped) return;
-
-            let card = JSON.parse(sessionStorage.getItem('dailyCard'));
-
-            // Check if we already have a card for today
-            const today = new Date().toDateString();
-            const storedDate = sessionStorage.getItem('dailyCardDate');
-            
-            if (!card || storedDate !== today) {
-                card = tarotCards[Math.floor(Math.random() * tarotCards.length)];
-                sessionStorage.setItem('dailyCard', JSON.stringify(card));
-                sessionStorage.setItem('dailyCardDate', today);
-            }
-            
-            document.getElementById('card-name').textContent = card.name;
-            document.getElementById('card-meaning').textContent = card.meaning;
-            document.getElementById('card-image').src = card.image;
-            instruction.textContent = "El mensaje ha sido revelado. Vuelve mañana para una nueva guía.";
-            
-            flipper.classList.add('is-flipped');
-            isFlipped = true;
-        });
-
-        // Check if card was already revealed today
-        const today = new Date().toDateString();
-        const storedDate = sessionStorage.getItem('dailyCardDate');
-        
-        if (storedDate === today) {
-            flipper.click();
-        }
-    }
-
-
+  
     // --- CORE FUNCTIONALITY ---
     
     // Global variables
@@ -635,14 +528,14 @@
         {
             id: 1,
             title: "Apertura de Caminos",
-            price: 15.000,
+            price: 15000,
             category: "Ritual",
             images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/a60ea23e-d8a3-40a0-9e21-01e52b422897/1757107827.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA3ODI3IiwicmVzb3VyY2VfY2hhdF9pZCI6IjRjNGJjYTk5LWJhMzUtNDU3Ny1hODAzLTUzMTljMjEzYWFkZCJ9.9PkTZVNGMU4ue1MTHnpniekoGRwGNMCnX7jyPUJS1OE&x-oss-process=image/resize,m_mfit,w_450,h_450"]  
                      }             , 
         {
             id: 2,
             title: "Protección de Pareja",
-            price: 15.000,
+            price: 15000,
             category: "Ritual",
             images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/5d8bcef9-3f38-43d2-b4f5-dc7a8c55422a/1757109484.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA5NDg0IiwicmVzb3VyY2VfY2hhdF9pZCI6IjIxMWFhZTA4LWEwOTQtNGI1OC05Y2MyLTEzMDZlYzYzMmQyYyJ9.I7aLG2tbebbbkE8p4bHwTERjqjdAykPhpeIE90VgRJY&x-oss-process=image/resize,m_mfit,w_450,h_450"]
         
@@ -650,21 +543,21 @@
         {
             id: 5,
             title: "Endulzamiento",
-            price: 30.000,
+            price: 30000,
             category: "Ritual",
             images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/544af70b-7e5c-4c5b-8d37-a53169ef9782/1757108165.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA4MTY1IiwicmVzb3VyY2VfY2hhdF9pZCI6ImY2MTU4NzdjLWI5ZTMtNDM5YS1iZTgwLTgzZjEwYjI4YmY4ZiJ9.0o0WV1f0m6c3CNh7NOOAGZJJM_ibS9T-S5vx-bi5fEQ&x-oss-process=image/resize,m_mfit,w_450,h_450"]
         },
         {
             id: 6,
             title: "Retorno de Pareja",
-            price: 45.000,
+            price: 45000,
             category: "Ritual",
             images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/e4e6ab93-5175-4797-afcd-8420f0382814/1757108016.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA4MDE2IiwicmVzb3VyY2VfY2hhdF9pZCI6IjQ0MzE3MzFlLWZhNGUtNDU0MC04ZGY1LWFlNjEzYmUwOTJiNiJ9.jNMTmYlkt-6pcs1V0jiYAj7-PzwJOl3C5n8yunejGK8&x-oss-process=image/resize,m_mfit,w_450,h_450"]
         },
         {
             id: 7,
             title: "Corte de Lazo Karmico",
-            price: 15.000,
+            price: 15000,
             category: "Ritual",
             images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/5a318114-567b-441e-98d0-4fe98e490f8b/1757108372.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA4MzcyIiwicmVzb3VyY2VfY2hhdF9pZCI6IjNiN2JlYTM1LTljY2QtNDQwYy1hMzg3LTE5MjI0Y2RiNjgzYyJ9.GRU4fcprevsfB7kK_dmox7eNKD9LbQiENg5hhdaXWwc&x-oss-process=image/resize,m_mfit,w_450,h_450"]
         }
@@ -676,7 +569,7 @@
         {
             id: 8,
             title: "Tirada Básica",
-            price: 10.000,
+            price: 10000,
             category: "Lectura",
            images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/05f61d8e-be9a-4dd3-b393-769d6b9357fd/1757109781.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA5NzgxIiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.ipvy51IwRJjmLUNve8zAc07iWn4ToxSTa2ECVAejTmg"]
         }
@@ -685,7 +578,7 @@
     {
         id: 9,
         title: "Análisis de Relación",
-        price: 12.000,
+        price: 12000,
         category: "Lectura",
         images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/19bbbe06-3fbe-4ecb-b511-b94deeea21be/1757109921.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA5OTIxIiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.DaxExfJb_Lt-EePk8BffY1Dc_lKS6mLjRKrGvnVN1iI&x-oss-process=image/resize,m_mfit,w_450,h_450"]
     },
@@ -695,7 +588,7 @@
 {
     id: 10,
     title: "Llave de Desbloqueo",
-    price: 15.000,
+    price: 15000,
     category: "Lectura",
     images:["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/7b126a6c-5cd8-4372-bbc0-7d09f7ca3ee7/1757110034.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTEwMDM0IiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.2ga8Cd2E573SpWpsKp0DUb3o8KH0KSumQTNM6JENhyY&x-oss-process=image/resize,m_mfit,w_450,h_450"] 
     
@@ -704,45 +597,37 @@
 ];
 
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let selectedMaterial = null;
 let currentProductId = null;
-
 function displayTarotServices() {
-        const tarotGrid = document.getElementById('tarot-grid');
-        if (!tarotGrid) return;
+    const tarotGrid = document.getElementById('tarot-grid');
+    if (!tarotGrid) return;
 
-        tarotGrid.innerHTML = '';
-        tarotData.forEach((product, index) => {
-            const tarotCard = document.createElement('div');
-            tarotCard.className = 'product-card reveal';
-            tarotCard.style.transitionDelay = `${index * 50}ms`;
-
-            tarotCard.innerHTML = `
-                <div class="product-image-container">
-                    <img src="${product.images[0]}" alt="${product.title}" class="product-image" loading="lazy">
-                </div>
-                <div class="p-4 text-center">
+    tarotGrid.innerHTML = '';
+    tarotData.forEach((product, index) => {
+        const tarotCard = document.createElement('div');
+        tarotCard.className = 'product-card reveal flex flex-col';
+        tarotCard.style.transitionDelay = `${index * 50}ms`;
+        
+        // --- CAMBIOS CLAVE AQUÍ ---
+        tarotCard.innerHTML = `
+            <div class="product-image-container">
+                <img src="${product.images[0]}" alt="${product.title}" class="product-image" loading="lazy">
+            </div>
+            <div class="p-4 text-center flex flex-col flex-grow">
+                <div class="flex-grow">
                     <h3 class="text-sm text-gray-500">${product.category}</h3>
                     <h2 class="text-lg font-semibold mb-1 serif">${product.title}</h2>
-                    <p class="text-xl font-bold mystic-text">$${product.price.toLocaleString('es-CO')}</p>
+                    <p class="text-xl font-bold mystic-text">$${product.price.toLocaleString('es-CL')}</p>
                 </div>
-                <div class="add-to-cart-flyout">
-                    <button class="btn-primary w-full !py-2 !text-sm add-to-cart-btn" data-id="${product.id}">Añadir al Carrito</button>
+                <div class="mt-4">
+                    <button data-id="${product.id}" data-type="tarot" class="btn-secondary w-full view-details-btn">Ver más</button>
                 </div>
-            `;
-            tarotGrid.appendChild(tarotCard);
-        });
-        
-        // Add event listeners for the new buttons
-        tarotGrid.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const productId = parseInt(button.dataset.id);
-                addToCart(productId, 1, 'Servicio'); // Call the main addToCart function
-            });
-        });
-    }
+            </div>
+        `;
+        tarotGrid.appendChild(tarotCard);
+    });
+}
   
 function displayProducts() {
         const productGrid = document.getElementById('product-grid');
@@ -752,228 +637,30 @@ function displayProducts() {
         
         productData.forEach((product, index) => {
             const productCard = document.createElement('div');
-            productCard.className = 'product-card reveal';
+            productCard.className = 'product-card reveal flex flex-col';
             productCard.style.transitionDelay = `${index * 50}ms`;
 
             productCard.innerHTML = `
                 <div class="product-image-container">
                     <img src="${product.images[0]}" alt="${product.title}" class="product-image" loading="lazy">
                 </div>
-                <div class="p-4 text-center">
-                    <h3 class="text-sm text-gray-500">${product.category}</h3>
-                    <h2 class="text-lg font-semibold mb-1 serif">${product.title}</h2>
-                    <p class="text-xl font-bold mystic-text">$${product.price.toFixed(2)}</p>
-                </div>
-                <div class="add-to-cart-flyout">
-                    <button class="btn-primary w-full !py-2 !text-sm add-to-cart-btn" data-id="${product.id}">Añadir al Carrito</button>
+                <div class="p-4 text-center flex flex-col flex-grow">
+                    <div class="flex-grow">
+                        <h3 class="text-sm text-gray-500">${product.category}</h3>
+                        <h2 class="text-lg font-semibold mb-1 serif">${product.title}</h2>
+                        <p class="text-xl font-bold mystic-text">$${product.price.toLocaleString('es-CL')}</p>
+                    </div>
+                    <div class="mt-4">
+                        <button data-id="${product.id}" data-type="ritual" class="btn-secondary w-full view-details-btn">Ver más</button>
+                    </div>
                 </div>
             `;
             productGrid.appendChild(productCard);
         });
 
-        // Add event listeners to the add to cart buttons
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const productId = parseInt(button.dataset.id);
-                addToCart(productId, 1, 'Standard');
-            });
-        });
+       
     }
 
-    //display tarot services
-
-  
-    function addToCart(productId, quantity, material) {
-        const product = productData.find(p => p.id === productId);
-        if (!product) return;
-
-        // Check if product is already in cart
-        const existingItemIndex = cart.findIndex(item => item.productId === productId && item.material === material);
-        
-        if (existingItemIndex !== -1) {
-            // Update quantity if product already exists
-            cart[existingItemIndex].quantity += quantity;
-        } else {
-            // Add new item to cart
-            const cartItem = {
-                id: Date.now(),
-                productId: product.id,
-                title: product.title,
-                price: product.price,
-                image: product.images[0],
-                material: material,
-                quantity: quantity
-            };
-            cart.push(cartItem);
-        }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        showNotification(`${product.title} añadido al carrito!`, 'success');
-        
-        // Open cart drawer to show the new item
-        document.getElementById('cart-drawer').classList.add('open');
-        document.getElementById('cart-overlay').style.display = 'block';
-        renderCartItems();
-    }
-
-    function initEventListeners() {
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-        
-        // Cart toggle
-        const cartToggle = document.getElementById('cart-toggle');
-        if (cartToggle) {
-            cartToggle.addEventListener('click', () => {
-                document.getElementById('cart-drawer').classList.add('open');
-                document.getElementById('cart-overlay').style.display = 'block';
-                renderCartItems();
-            });
-        }
-        
-        // Close cart
-        const closeCartBtn = document.getElementById('close-cart');
-        const cartOverlay = document.getElementById('cart-overlay');
-        
-        if (closeCartBtn) {
-            closeCartBtn.addEventListener('click', closeCart);
-        }
-        
-        if (cartOverlay) {
-            cartOverlay.addEventListener('click', closeCart);
-        }
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
-    }
-    
-    function closeCart() {
-        document.getElementById('cart-drawer').classList.remove('open');
-        document.getElementById('cart-overlay').style.display = 'none';
-    }
-
-    function renderCartItems() {
-        const cartItemsContainer = document.getElementById('cart-items');
-        const cartSubtotal = document.getElementById('cart-subtotal');
-        const cartShipping = document.getElementById('cart-shipping');
-        const cartTotal = document.getElementById('cart-total');
-        
-        if (!cartItemsContainer) return;
-        
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = `<div class="p-8 text-center text-gray-500">Tu carrito está vacío.</div>`;
-            if (cartSubtotal) cartSubtotal.textContent = '$0.00';
-            if (cartShipping) cartShipping.textContent = '$0.00';
-            if (cartTotal) cartTotal.textContent = '$0.00';
-            return;
-        }
-        
-        // Calculate totals
-        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        const shipping = subtotal > 0 ? 5.99 : 0; // Example shipping calculation
-        const total = subtotal + shipping;
-        
-        // Update totals
-        if (cartSubtotal) cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-        if (cartShipping) cartShipping.textContent = `$${shipping.toFixed(2)}`;
-        if (cartTotal) cartTotal.textContent = `$${total.toFixed(2)}`;
-        
-        // Render cart items
-        cartItemsContainer.innerHTML = cart.map(item => `
-            <div class="flex items-center gap-4 p-4 border-b">
-                <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded-md" loading="lazy">
-                <div class="flex-grow">
-                    <p class="font-semibold">${item.title}</p>
-                    <p class="text-sm text-gray-600">${item.material}</p>
-                    <div class="flex items-center mt-2">
-                        <button class="text-gray-500 change-quantity" data-id="${item.id}" data-action="decrease">-</button>
-                        <span class="mx-2">${item.quantity}</span>
-                        <button class="text-gray-500 change-quantity" data-id="${item.id}" data-action="increase">+</button>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="font-bold">$${(item.price * item.quantity).toFixed(2)}</p>
-                    <button class="text-red-500 text-sm remove-item mt-1" data-id="${item.id}">Eliminar</button>
-                </div>
-            </div>
-        `).join('');
-        
-        // Add event listeners to quantity buttons and remove buttons
-        document.querySelectorAll('.change-quantity').forEach(button => {
-            button.addEventListener('click', function() {
-                const itemId = parseInt(this.dataset.id);
-                const action = this.dataset.action;
-                updateCartItemQuantity(itemId, action);
-            });
-        });
-        
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', function() {
-                const itemId = parseInt(this.dataset.id);
-                removeCartItem(itemId);
-            });
-        });
-    }
-    
-    function updateCartItemQuantity(itemId, action) {
-        const itemIndex = cart.findIndex(item => item.id === itemId);
-        
-        if (itemIndex !== -1) {
-            if (action === 'increase') {
-                cart[itemIndex].quantity += 1;
-            } else if (action === 'decrease' && cart[itemIndex].quantity > 1) {
-                cart[itemIndex].quantity -= 1;
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            renderCartItems();
-        }
-    }
-    
-    function removeCartItem(itemId) {
-        cart = cart.filter(item => item.id !== itemId);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        renderCartItems();
-        showNotification('Producto eliminado del carrito', 'success');
-    }
-
-    function updateCartCount() {
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        const cartCount = document.getElementById('cart-count');
-        
-        if (cartCount) {
-            cartCount.textContent = totalItems;
-        }
-    }
 
     function showNotification(message, type) {
         const notificationContainer = document.getElementById('notification-container') || document.body;
@@ -1028,6 +715,7 @@ function displayProducts() {
         });
     }
 
+    
     </script>
 </body>
 </html>
