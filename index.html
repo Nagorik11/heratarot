@@ -243,6 +243,11 @@
                         <p class="text-gray-600 mb-6">Cada lectura es un espacio sagrado, libre de juicio, donde exploramos juntas tus dudas, miedos y anhelos. Permíteme ser tu guía en este viaje de autodescubrimiento.</p>
                         <p class="signature">Con cariño, Verónica</p>
 
+                        <div class="mt-6 p-4 bg-violet-50 rounded-lg border border-violet-200">
+                            <h4 class="font-semibold text-gray-800 mb-2 flex items-center"><i class="fab fa-whatsapp text-green-500 mr-2"></i>Metodología de Lectura</h4>
+                            <p class="text-gray-600 text-sm">Todas las lecturas se realizan por <strong>WhatsApp</strong>, mediante audios e imágenes. No se realizan videollamadas para mantener el foco en la canalización de energía.</p>
+                        </div>
+
                 <!-- BOTÓN DE WHATSAPP AÑADIDO AQUÍ -->
                 <div class="mt-8">
                     <a href="https://wa.me/56950186829" target="_blank" rel="noopener noreferrer" class="btn-primary">
@@ -358,9 +363,9 @@
                 <h2 id="modal-title" class="text-3xl font-bold serif mb-2">Product Title</h2>
                 <p id="modal-category" class="text-gray-500 mb-4">Category</p>
                 <p id="modal-price" class="text-3xl font-bold mystic-text mb-6">$</p>
-                <p id="modal-description" class="text-gray-600 mb-6 flex-grow">
+                <div id="modal-description" class="text-gray-600 mb-6 flex-grow">
                     This is a placeholder for the product description. It will provide more details about the service or item.
-                </p>
+                </div>
                 <a href="https://wa.me/56950186829" target="_blank" rel="noopener noreferrer" class="btn-primary w-full text-center mt-auto">
                     Consultar por WhatsApp
                 </a>
@@ -406,9 +411,12 @@
             6: "Un poderoso ritual enfocado en reavivar la llama y facilitar el regreso de un ser amado, trabajando sobre las energías del amor y la reconciliación.",
             7: "Libérate de ataduras energéticas del pasado que ya no te sirven. Este ritual ayuda a cortar lazos kármicos para que puedas avanzar con libertad.",
             // Tarot
-            8: "Una tirada de 3 cartas para obtener una visión general rápida sobre una pregunta específica. Ideal para una guía concisa y directa.",
-            9: "Explora la dinámica de tu relación. Esta lectura analiza las energías, los desafíos y el potencial de la conexión con tu pareja o persona de interés.",
-            10: "Identifica y disuelve los bloqueos energéticos que te impiden avanzar. Esta lectura te entrega una 'llave' simbólica para abrir nuevos caminos en tu vida."
+            8: "Una lectura de 5 preguntas para obtener respuestas claras y concisas sobre un tema específico. Ideal para cuando necesitas una guía rápida.",
+            9: "Una lectura profunda y sin límite de tiempo para explorar la dinámica de tu relación. Analiza las energías, los desafíos y el potencial de la conexión con tu pareja o persona de interés.",
+            10: "Identifica y disuelve los bloqueos energéticos que te impiden avanzar. Esta lectura te entrega una 'llave' simbólica para abrir nuevos caminos en tu vida.",
+            11: "Una pregunta específica respondida con una tirada de tarot. Claridad directa para una duda puntual.",
+            12: "Una lectura enfocada en responder tres preguntas específicas, dándote una visión más amplia de tu situación actual.",
+            13: "Una sesión completa de una hora para explorar en profundidad diversas áreas de tu vida, resolver dudas complejas y recibir una guía espiritual extensiva."
         };
 
         // Populate modal
@@ -417,7 +425,11 @@
         modal.querySelector('#modal-title').textContent = product.title;
         modal.querySelector('#modal-category').textContent = product.category;
         modal.querySelector('#modal-price').textContent = `$${product.price.toLocaleString('es-CL')}`;
-        modal.querySelector('#modal-description').textContent = descriptions[product.id] || 'Contacta para más detalles sobre este servicio.';
+        
+        const descriptionEl = modal.querySelector('#modal-description');
+        const baseDescription = descriptions[product.id] || 'Contacta para más detalles sobre este servicio.';
+        const methodologyNote = '<p class="mt-4 text-sm text-gray-500 italic">Nota: Todas las lecturas se realizan por WhatsApp (audios e imágenes). No se hacen videollamadas.</p>';
+        descriptionEl.innerHTML = `<p>${baseDescription}</p>${methodologyNote}`;
 
         // Show modal
         modal.style.display = 'flex';
@@ -578,21 +590,41 @@
     {
         id: 9,
         title: "Análisis de Relación",
-        price: 12000,
+        price: 20000,
         category: "Lectura",
         images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/19bbbe06-3fbe-4ecb-b511-b94deeea21be/1757109921.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA5OTIxIiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.DaxExfJb_Lt-EePk8BffY1Dc_lKS6mLjRKrGvnVN1iI&x-oss-process=image/resize,m_mfit,w_450,h_450"]
     },
 
     // analisis de relacion 15mil
     
-{
-    id: 10,
-    title: "Llave de Desbloqueo",
-    price: 15000,
-    category: "Lectura",
-    images:["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/7b126a6c-5cd8-4372-bbc0-7d09f7ca3ee7/1757110034.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTEwMDM0IiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.2ga8Cd2E573SpWpsKp0DUb3o8KH0KSumQTNM6JENhyY&x-oss-process=image/resize,m_mfit,w_450,h_450"] 
-    
-}
+    {
+        id: 10,
+        title: "Llave de Desbloqueo",
+        price: 15000,
+        category: "Lectura",
+        images:["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/7b126a6c-5cd8-4372-bbc0-7d09f7ca3ee7/1757110034.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTEwMDM0IiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.2ga8Cd2E573SpWpsKp0DUb3o8KH0KSumQTNM6JENhyY&x-oss-process=image/resize,m_mfit,w_450,h_450"] 
+    },
+    {
+        id: 11,
+        title: "1 Pregunta",
+        price: 3000,
+        category: "Lectura",
+        images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/05f61d8e-be9a-4dd3-b393-769d6b9357fd/1757109781.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA5NzgxIiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.ipvy51IwRJjmLUNve8zAc07iWn4ToxSTa2ECVAejTmg"]
+    },
+    {
+        id: 12,
+        title: "3 Preguntas",
+        price: 6000,
+        category: "Lectura",
+        images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/7b126a6c-5cd8-4372-bbc0-7d09f7ca3ee7/1757110034.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTEwMDM0IiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.2ga8Cd2E573SpWpsKp0DUb3o8KH0KSumQTNM6JENhyY"]
+    },
+    {
+        id: 13,
+        title: "Sesión de una hora",
+        price: 25000,
+        category: "Lectura",
+        images: ["https://cdn.qwenlm.ai/output/6c2c147a-8f34-4139-85e3-603d9e0d2533/t2i/19bbbe06-3fbe-4ecb-b511-b94deeea21be/1757109921.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiNmMyYzE0N2EtOGYzNC00MTM5LTg1ZTMtNjAzZDllMGQyNTMzIiwicmVzb3VyY2VfaWQiOiIxNzU3MTA5OTIxIiwicmVzb3VyY2VfY2hhdF9pZCI6ImRmMDc3Mjg3LWRjY2UtNDIyNS1hNTQ5LTRiM2UyMjQyOTJhMyJ9.DaxExfJb_Lt-EePk8BffY1Dc_lKS6mLjRKrGvnVN1iI"]
+    }
         
 ];
 
