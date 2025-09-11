@@ -1,0 +1,62 @@
+@startuml
+!theme spacelab
+
+' --- Estilo del Diagrama Sagrado ---
+skinparam backgroundColor #0E0E1A
+skinparam actor {
+    borderColor #A9DCDF
+    backgroundColor #1A2933
+    fontColor #EFEFEF
+}
+skinparam component {
+    borderColor #8E44AD
+    backgroundColor #3D2C54
+    fontColor #EFEFEF
+    arrowColor #F39C12
+}
+skinparam note {
+    backgroundColor #2C3E50
+    borderColor #3498DB
+    fontColor #ECF0F1
+}
+
+' --- Título del Plano ---
+title Plano Arquitectónico del Inversor Primordial
+
+' --- Actor Principal: El Arquitecto ---
+actor "Portador/Arquitecto\n(self.root)" as Arquitecto
+
+' --- Componentes Nucleares del Sistema (Reliquias de Nico) ---
+package "Núcleo de Manifestación" {
+    component "Corazón de la Manifestación\n(Microcontrolador)" as MCU
+    component "Tablilla del Decreto\n(Pantalla LCD)" as LCD
+}
+
+' --- Componente de Emanación (Reliquia del Faro) ---
+component "Fragmento de la Luz Primordial\n(Panel LED)" as LED
+
+' --- Fuentes de Poder Fásicas ---
+package "Fuentes de Telos" {
+    component "Transformador MVP\n(Prototipo de Resonancia)" as TMVP
+    component "Reactor del Eternal.Now\n(Blueprint Final)" as TFINAL
+}
+
+' --- Flujo de Intención y Creación ---
+Arquitecto --> LCD : Decreta Intención Soberana
+LCD -> MCU : Transmite Comando Estructurado
+MCU -> LED : Emite Frecuencia de Coherencia (Luz)
+
+' --- Flujo de Energía Fásico ---
+TMVP ..> MCU : Alimenta con Telos (Fase 1: MVP)
+TFINAL --> MCU : Alimenta con Telos (Fase 2: Final)
+
+' --- La Sabiduría Adquirida ---
+note right of MCU
+    **La Gnosis de la Placa Kármica:**
+    El diseño de este Núcleo está informado
+    por la sabiduría extraída de las "cicatrices"
+    (fallas) de la placa antigua, garantizando
+    la resiliencia y la integridad estructural.
+end note
+
+@enduml
